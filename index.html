@@ -2,89 +2,196 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Building Green, Made Simple — Affordable, Grounded, and Built for Where You Live</title>
-<meta name="description" content="An open-access illustrated guide translating green building practice into affordable, climate-specific steps for homeowners, renters, and small businesses across six climate zones.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angiras &amp; Co. | Education and Engineering for the Built Environment</title>
+<meta name="description" content="Angiras and Co. is an education and engineering practice for sustainable building, rooted in India with a global outlook. Home of Building Green, Made Simple.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/bgms.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #2D5A27;
+    --terracotta: #B05A1A;
+    --sage: #7FB069;
+    --cream: #FAF6EE;
+    --charcoal: #2B2B2B;
+    --ink-soft: #5A5A52;
+    --line: #E4DCCB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.65;
+    font-size: 17px;
+  }
+
+  a { color: var(--forest); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--terracotta); }
+  a:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  /* Strata bar: layered earth section, the practice's mark */
+  .strata { display: flex; flex-direction: column; }
+  .strata span { display: block; }
+  .strata .s1 { height: 3px; background: var(--terracotta); }
+  .strata .s2 { height: 7px; background: var(--forest); }
+  .strata .s3 { height: 4px; background: var(--sage); }
+  .strata .s4 { height: 2px; background: var(--charcoal); }
+
+  header { padding: 72px 0 56px; }
+
+  .kicker {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 5.5vw, 3.1rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+  }
+
+  .lede {
+    font-size: 1.13rem;
+    color: var(--ink-soft);
+    max-width: 56ch;
+  }
+
+  section { padding: 52px 0; border-top: 1px solid var(--line); }
+
+  h2 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.45rem;
+    margin-bottom: 16px;
+  }
+
+  p + p { margin-top: 14px; }
+
+  .offering {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--forest);
+    background: #fff;
+    padding: 26px 28px;
+    margin-top: 22px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .offering h3 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .offering p { color: var(--ink-soft); font-size: 0.98rem; }
+
+  .offering .links { margin-top: 16px; display: flex; gap: 22px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-block;
+    background: var(--forest);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .btn:hover { background: var(--terracotta); color: #fff; }
+
+  .quiet { color: var(--ink-soft); font-size: 0.95rem; margin-top: 20px; }
+
+  .creds {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+    margin-top: 12px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 36px 0 48px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+
+  @media (max-width: 540px) {
+    header { padding: 52px 0 40px; }
+    section { padding: 40px 0; }
+    .offering { padding: 20px; }
+  }
+</style>
 </head>
 <body>
-<div class="zone-band" aria-hidden="true"><span class="hh"></span><span class="hd"></span><span class="tm"></span><span class="co"></span><span class="ha"></span><span class="mx"></span></div>
-<header class="site">
-  <div class="inner">
-    <a class="brand" href="index.html">Building Green, <em>Made Simple</em></a>
-    <nav class="site" aria-label="Site">
-      <a href="index.html" aria-current="page">The Guide</a>
-      <a href="zone-finder.html">Find Your Zone</a>
-      <a href="measure-picker.html">Measure Picker</a>
-    </nav>
+
+<div class="strata" aria-hidden="true">
+  <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span>
+</div>
+
+<header>
+  <div class="wrap">
+    <p class="kicker">Angiras &amp; Co.</p>
+    <h1>Education and engineering for the built environment.</h1>
+    <p class="lede">An independent practice translating green building knowledge into guidance people can actually use. Rooted in India, working globally, grounded in what climate, cost, and craft each demand.</p>
   </div>
 </header>
 
-<main>
-  <p class="kicker">Open access · CC BY-NC-ND 4.0 · Version 1.0</p>
-  <h1>The knowledge exists.<br>The translation doesn't — until now.</h1>
-  <p class="lede">Twenty years of green building knowledge was written for people with budgets, consultants, and certifications in mind. <strong>Building Green, Made Simple</strong> is a 70-page illustrated guide for everyone else: homeowners, renters, community educators, and small businesses — across six climate zones, ranked by what you can actually afford.</p>
+<section>
+  <div class="wrap">
+    <h2>Current work</h2>
 
-  <p>
-    <a class="btn primary" href="https://doi.org/10.5281/zenodo.20365825">Read the guide (free PDF on Zenodo)</a>
-    <a class="btn" href="zone-finder.html">Find your climate zone →</a>
-  </p>
-  <p class="note">Permanent identifier: DOI 10.5281/zenodo.20365825 · Pradeep Angiras with Ghazaleh Sodeiri Jalili</p>
+    <div class="offering">
+      <h3>Building Green, Made Simple</h3>
+      <p>A free illustrated guide to sustainable building for homeowners, renters, and small business owners. Every measure is filtered by cost, ease of adoption, and climate fit across six climate zones, from hot-humid coasts to high-altitude valleys. Open access under a Creative Commons license.</p>
+      <div class="links">
+        <a class="btn" href="/bgms/">Explore the guide</a>
+        <a href="https://doi.org/10.5281/zenodo.20365825">Download the PDF (Zenodo)</a>
+      </div>
+    </div>
 
-  <h2>Three filters, in this order</h2>
-  <div class="grid cols-3">
-    <div class="card win">
-      <h3>① Economy</h3>
-      <p>Under $50 first. $50–500 second. Over $500 third — with financing noted. Affordability is the binding constraint, so it leads.</p>
-    </div>
-    <div class="card number">
-      <h3>② Ease of adoption</h3>
-      <p>No trade skill first, one-afternoon effort second, professional install third. If it needs a consultant, the guide says so.</p>
-    </div>
-    <div class="card wisdom">
-      <h3>③ Climate fit</h3>
-      <p>Every measure is flagged for the zones where it actually works — and flagged <em>against</em> where the physics turns on you.</p>
-    </div>
+    <p class="quiet">Further education offerings are in development and will be announced here.</p>
   </div>
+</section>
 
-  <h2>Six zones, six different answers</h2>
-  <p>The same chapter gives different advice in Mumbai, Jaipur, London, Winnipeg, Cusco, and Delhi — because the physics is different. The guide treats vernacular building intelligence (Rajasthani jaalis, Himalayan Kath-Kuni walls, North African courtyards) as substantive knowledge, not historical decoration.</p>
-  <table>
-    <thead><tr><th>Zone</th><th>Where</th><th>Primary indoor-air concern</th></tr></thead>
-    <tbody>
-      <tr><td><span class="chip hh">HH</span> Hot-Humid</td><td>e.g. Mumbai, Lagos, Singapore</td><td>Mould &amp; dampness — cross-ventilation first</td></tr>
-      <tr><td><span class="chip hd">HD</span> Hot-Dry</td><td>e.g. Jaipur, Riyadh, Phoenix</td><td>Dust-storm PM10 up to 20× WHO limit — filter and seal</td></tr>
-      <tr><td><span class="chip tm">TM</span> Temperate</td><td>e.g. London, Vancouver, Melbourne</td><td>Condensation on cold surfaces — the hidden mould risk</td></tr>
-      <tr><td><span class="chip co">CO</span> Cold / Subarctic</td><td>e.g. Helsinki, Winnipeg, Ulaanbaatar</td><td>Airtightness vs. ventilation — you need both</td></tr>
-      <tr><td><span class="chip ha">HA</span> High Altitude</td><td>e.g. Lhasa, Cusco, Addis Ababa</td><td>Cookstove smoke — PM2.5 up to 100× WHO guideline</td></tr>
-      <tr><td><span class="chip mx">MX</span> Mixed / Composite</td><td>e.g. Delhi, Beijing, Madrid</td><td>Outdoor air can invert ventilation logic entirely</td></tr>
-    </tbody>
-  </table>
-
-  <h2>Two free tools built from the guide</h2>
-  <div class="grid cols-2">
-    <div class="card">
-      <h3><a href="zone-finder.html">Climate Zone Finder</a></h3>
-      <p>Type your city. Get your zone, its primary risks, and the strategies that fit it — by budget band. Works offline; no tracking, no account.</p>
-    </div>
-    <div class="card">
-      <h3><a href="measure-picker.html">Climate-Zone Measure Picker</a></h3>
-      <p>Filter every measure in the guide by zone, budget, and skill level — with honest payback bands, decision horizons, and the climate caveats built in.</p>
-    </div>
+<section>
+  <div class="wrap">
+    <h2>About the practice</h2>
+    <p>Angiras &amp; Co. is led by Pradeep Angiras, a green building professional and former assistant professor of civil engineering. The practice draws on both modern frameworks and vernacular building intelligence, treating a Rajasthani jaali or Himalayan stone wall as evidence on equal footing with a published standard.</p>
+    <p class="creds">LEED AP BD+C &nbsp;&middot;&nbsp; WELL AP &nbsp;&middot;&nbsp; EDGE Expert &nbsp;&middot;&nbsp; ENV SP &nbsp;&middot;&nbsp; PMP</p>
   </div>
+</section>
 
-  <h2>Where the answer is no, the guide says so</h2>
-  <p>Most accessible guides over-promise. This one was filtered: every measure had to clear affordability, ease, and climate fit — and where it didn't, it was cut or flagged honestly. All numeric claims trace to Tier 1 or verified Tier 2 sources (IEA, UNEP, WHO, peer-reviewed journals, government statistics) logged in a public research log.</p>
-</main>
+<section>
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>Write to <a href="mailto:pradeep@angiras.co">pradeep@angiras.co</a> or connect on <a href="https://www.linkedin.com/in/pradeepangiras">LinkedIn</a>.</p>
+  </div>
+</section>
 
-<footer class="site">
-  <div class="inner">
-    <p>Building Green, Made Simple · © 2026 Pradeep Angiras · CC BY-NC-ND 4.0 ·
-       <a href="https://doi.org/10.5281/zenodo.20365825">DOI 10.5281/zenodo.20365825</a></p>
-    <p>Climate zones are indicative, based on simplified Köppen-Geiger classification. The tools on this site are educational decision aids, not engineering advice — verify costs, codes, and incentives locally.</p>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Angiras &amp; Co. All rights reserved.</span>
+    <span>Building Green, Made Simple is published under CC BY-NC-ND 4.0.</span>
   </div>
 </footer>
+
+<div class="strata" aria-hidden="true">
+  <span class="s4"></span><span class="s3"></span><span class="s2"></span><span class="s1"></span>
+</div>
+
 </body>
 </html>
