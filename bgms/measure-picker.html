@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Climate-Zone Measure Picker — Building Green, Made Simple</title>
+<meta name="description" content="Filter every measure in the BGMS guide by climate zone, budget band, and skill level — with payback bands, decision horizons, and honest climate caveats.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/bgms.css">
+<style>
+  .filters { display:grid; gap:0.9rem; margin:1.4rem 0; }
+  @media (min-width: 720px) { .filters { grid-template-columns: repeat(3, 1fr); } }
+  .filters label { font-family:var(--font-head); font-weight:700; font-size:0.85rem; display:block; margin-bottom:0.25rem; }
+  .measure { background:#fff; border:1px solid var(--rule); border-left:6px solid var(--forest); border-radius:8px; padding:1rem 1.2rem; margin:0.8rem 0; }
+  .measure h3 { margin:0 0 0.3rem; }
+  .measure .src { font-size:0.78rem; color:var(--stone); margin-top:0.5rem; }
+  .measure.flagged { border-left-color: var(--terracotta); }
+  .flagnote { color: var(--terracotta); font-weight:600; }
+  .finance { background: var(--cream); border-radius:6px; padding:0.5rem 0.8rem; margin-top:0.5rem; font-size:0.92rem; }
+  .count { font-family:var(--font-head); font-weight:700; color:var(--stone); }
+  .ladder { margin: 0.6rem 0 1.4rem; }
+</style>
+</head>
+<body>
+<div class="zone-band" aria-hidden="true"><span class="hh"></span><span class="hd"></span><span class="tm"></span><span class="co"></span><span class="ha"></span><span class="mx"></span></div>
+<header class="site">
+  <div class="inner">
+    <a class="brand" href="index.html">Building Green, <em>Made Simple</em></a>
+    <nav class="site" aria-label="Site">
+      <a href="index.html">The Guide</a>
+      <a href="zone-finder.html">Find Your Zone</a>
+      <a href="measure-picker.html" aria-current="page">Measure Picker</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <p class="kicker">Free tool · Economy → Ease → Climate fit, in that order</p>
+  <h1>Climate-Zone Measure Picker</h1>
+  <p class="lede">Every measure from the guide, filtered three ways. Costs are shown as <strong>bands, not prices</strong> — real prices vary too much by country to be honest at the global level. Payback ranges appear only where a verified source supports them. Everything else says "verify locally," because it's true.</p>
+
+  <div class="filters">
+    <div>
+      <label for="fZone">Climate zone <a href="zone-finder.html" style="font-weight:400;">(not sure?)</a></label>
+      <select id="fZone">
+        <option value="">All zones</option>
+      </select>
+    </div>
+    <div>
+      <label for="fCost">Budget band</label>
+      <select id="fCost">
+        <option value="">Any budget</option>
+        <option value="1">Under $50</option>
+        <option value="2">$50–500</option>
+        <option value="3">Over $500 (financing noted)</option>
+      </select>
+    </div>
+    <div>
+      <label for="fEase">Skill level</label>
+      <select id="fEase">
+        <option value="">Any skill level</option>
+        <option value="1">No trade skill</option>
+        <option value="2">One afternoon</option>
+        <option value="3">Professional install</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card number ladder">
+    <h3>How to read the money: payback periods for common investments</h3>
+    <p>LED lighting <strong>under 1 year</strong> · air sealing <strong>1–2 years</strong> · insulation <strong>2–3 years</strong> · heat pump <strong>4–6 years</strong> · solar PV <strong>6–10 years</strong>. After payback, savings continue for the remaining life of the measure — often 10–20+ years. Incentives, energy prices, and local conditions can shorten these. <em>Source: DOE Building America; NRCan. Specific values vary by location — verify locally.</em></p>
+  </div>
+
+  <p class="count" id="count"></p>
+  <section id="list" aria-live="polite"></section>
+</main>
+
+<footer class="site">
+  <div class="inner">
+    <p>Building Green, Made Simple · © 2026 Pradeep Angiras · CC BY-NC-ND 4.0 ·
+       <a href="https://doi.org/10.5281/zenodo.20365825">Read the full guide (DOI 10.5281/zenodo.20365825)</a></p>
+    <p>Educational decision aid, not engineering or financial advice. Cost bands and payback ranges are indicative global figures from the guide's verified sources; codes, prices, and incentives are local — always verify before spending.</p>
+  </div>
+</footer>
+
+<script src="assets/zones.js"></script>
+<script src="assets/measures.js"></script>
+<script>
+(function () {
+  if (typeof BGMS_ZONES === "undefined" || typeof BGMS_MEASURES === "undefined") {
+    document.getElementById("list").innerHTML =
+      '<div class="card number"><h3>This page needs its data files</h3><p>It looks like this file was opened on its own. Unzip the full <strong>bgms-site</strong> folder, keep the folder structure intact (the <code>assets</code> folder must sit next to this file), and open <strong>index.html</strong> from inside that folder.</p></div>';
+    return;
+  }
+  const fZone = document.getElementById("fZone");
+  const fCost = document.getElementById("fCost");
+  const fEase = document.getElementById("fEase");
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+
+  Object.values(BGMS_ZONES).forEach(z => {
+    const o = document.createElement("option");
+    o.value = z.code; o.textContent = `${z.code} · ${z.name}`;
+    fZone.appendChild(o);
+  });
+
+  function zoneChips(m, activeZone) {
+    const fit = m.zones.map(z => `<span class="chip ${BGMS_ZONES[z].cls}" title="${BGMS_ZONES[z].name}">${z}</span>`).join(" ");
+    const against = m.avoid.length
+      ? ` <span class="chip ghost" title="Flagged against">⚠ not ${m.avoid.join(", ")}</span>` : "";
+    return fit + against;
+  }
+
+  function render() {
+    const zone = fZone.value, cost = fCost.value, ease = fEase.value;
+    let items = BGMS_MEASURES.slice();
+    if (zone) items = items.filter(m => m.zones.includes(zone));
+    if (cost) items = items.filter(m => String(m.cost) === cost);
+    if (ease) items = items.filter(m => String(m.ease) === ease);
+    // Guide's priority order: economy first, then ease
+    items.sort((a, b) => a.cost - b.cost || a.ease - b.ease);
+
+    count.textContent = items.length
+      ? `${items.length} measure${items.length > 1 ? "s" : ""}${zone ? " for " + BGMS_ZONES[zone].name : ""}, cheapest and easiest first`
+      : "";
+
+    if (!items.length) {
+      list.innerHTML = `<div class="card"><p>No measure clears all three filters here — and that's the honest answer, not a gap in the tool. Widen one filter, or read the ${zone ? BGMS_ZONES[zone].name : "relevant"} chapter sections for context: <a href="https://doi.org/10.5281/zenodo.20365825">the guide is free</a>.</p></div>`;
+      return;
+    }
+
+    list.innerHTML = items.map(m => {
+      const flaggedHere = fZone.value && m.avoid.includes(fZone.value);
+      return `
+      <article class="measure${flaggedHere ? " flagged" : ""}">
+        <h3>${m.name}</h3>
+        <div class="badge-row">
+          <span class="tag">${BGMS_COST_LABELS[m.cost]}</span>
+          <span class="tag">${BGMS_EASE_LABELS[m.ease]}</span>
+          ${m.payback ? `<span class="tag pay">Payback: ${m.payback}</span>` : ""}
+          <span class="tag fin">${BGMS_HORIZON_LABELS[m.horizon]}</span>
+          <span class="tag" style="background:#fff;border:1px solid var(--rule);">Guide Ch ${m.ch}</span>
+        </div>
+        <div class="badge-row">${zoneChips(m)}</div>
+        <p>${flaggedHere ? `<span class="flagnote">Flagged against your zone — read why before spending:</span> ` : ""}${m.caveat}</p>
+        ${m.finance ? `<div class="finance"><strong>Money note:</strong> ${m.finance}</div>` : ""}
+        <p class="src">Source: ${m.src}</p>
+      </article>`;
+    }).join("");
+  }
+
+  [fZone, fCost, fEase].forEach(el => el.addEventListener("change", render));
+
+  // Deep link: measure-picker.html?zone=HD
+  const params = new URLSearchParams(location.search);
+  const pz = (params.get("zone") || "").toUpperCase();
+  if (BGMS_ZONES[pz]) fZone.value = pz;
+
+  render();
+})();
+</script>
+</body>
+</html>
