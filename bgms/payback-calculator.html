@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payback Calculator — Building Green, Made Simple</title>
+<meta name="description" content="Work out the payback period for any home energy or water measure, compare two appliances by lifetime cost, and sanity-check a solar quote — in your own currency, using the arithmetic from the Building Green, Made Simple guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/bgms.css">
+<style>
+/* Page-scoped styles. Inherit site fonts and colors; add only calculator parts. */
+.calc fieldset{border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:1rem 1.1rem;margin:0 0 1rem}
+.calc legend{font-weight:600;padding:0 .4rem}
+.calc label{display:block;font-weight:600;font-size:.92rem;margin:.65rem 0 .2rem}
+.calc label .hint{display:block;font-weight:400;font-size:.82rem;opacity:.75}
+.calc input[type=number],.calc select{width:100%;max-width:18rem;padding:.5rem .6rem;font:inherit;border:1px solid rgba(0,0,0,.3);border-radius:6px;background:#fff}
+.calc input:focus-visible,.calc select:focus-visible,.preset:focus-visible{outline:3px solid var(--accent,#2f6b3a);outline-offset:2px}
+.presets{display:flex;flex-wrap:wrap;gap:.4rem;margin:.4rem 0 .2rem}
+.preset{font:inherit;font-size:.82rem;padding:.25rem .65rem;border:1px solid rgba(0,0,0,.3);border-radius:999px;background:#fff;cursor:pointer}
+.preset:hover{border-color:var(--accent,#2f6b3a)}
+.result{border-left:5px solid var(--accent,#2f6b3a);background:rgba(47,107,58,.06);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:1rem 0}
+.result strong.big{font-family:Montserrat,system-ui,sans-serif;font-size:1.5rem;display:block;margin-bottom:.2rem}
+.result.warn{border-left-color:#b5651d;background:rgba(181,101,29,.07)}
+.verdict{font-size:.9rem;margin:.3rem 0 0}
+/* The second price tag — the page's one signature element */
+.tags{display:flex;gap:1.2rem;flex-wrap:wrap;margin:1.2rem 0}
+.pricetag{position:relative;flex:1 1 14rem;max-width:20rem;border:2px solid rgba(0,0,0,.55);border-radius:10px 28px 10px 10px;padding:1rem 1.1rem .9rem;background:#fff}
+.pricetag::before{content:"";position:absolute;top:.55rem;right:.6rem;width:.7rem;height:.7rem;border:2px solid rgba(0,0,0,.55);border-radius:50%;background:inherit}
+.pricetag .tagname{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;opacity:.65}
+.pricetag .tagval{font-family:Montserrat,system-ui,sans-serif;font-size:1.6rem;font-weight:800;margin:.15rem 0}
+.pricetag .tagsub{font-size:.85rem;opacity:.8}
+.pricetag.second{border-color:var(--accent,#2f6b3a)}
+.pricetag.second::before{border-color:var(--accent,#2f6b3a)}
+.currency-bar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;border:1px dashed rgba(0,0,0,.3);border-radius:8px;padding:.6rem .9rem;margin:1rem 0 1.6rem}
+.currency-bar select{max-width:14rem}
+@media (prefers-reduced-motion:no-preference){.result{transition:background .25s}}
+</style>
+</head>
+<body>
+<div class="zone-band" aria-hidden="true"><span class="hh"></span><span class="hd"></span><span class="tm"></span><span class="co"></span><span class="ha"></span><span class="mx"></span></div>
+<header class="site">
+  <div class="inner">
+    <a class="brand" href="index.html">Building Green, <em>Made Simple</em></a>
+    <nav class="site" aria-label="Site">
+      <a href="index.html">The Guide</a>
+      <a href="zone-finder.html">Find Your Zone</a>
+      <a href="measure-picker.html">Measure Picker</a>
+      <a href="payback-calculator.html" aria-current="page">Payback Calculator</a>
+    </nav>
+  </div>
+</header>
+
+<main class="calc">
+  <p class="kicker">Free tool · works offline · no tracking, no account</p>
+  <h1>Every purchase has two price tags.<br>This page reads the second one.</h1>
+  <p class="lede">The first price tag is on the shelf. The second is what the thing costs to run for the rest of its life — and for anything that runs daily, the second tag is often the larger of the two. Three small calculators below, using the same arithmetic as Chapter 6 of the guide. The maths works in any currency.</p>
+
+  <div class="currency-bar">
+    <label for="currency" style="margin:0;font-weight:600">Show results in:</label>
+    <select id="currency" aria-label="Currency symbol">
+      <option value="$">$ — Dollar (US, CA, AU, SG…)</option>
+      <option value="₹">₹ — Indian Rupee</option>
+      <option value="€">€ — Euro</option>
+      <option value="£">£ — Pound Sterling</option>
+      <option value="₦">₦ — Nigerian Naira</option>
+      <option value="KSh">KSh — Kenyan Shilling</option>
+      <option value="R">R — South African Rand</option>
+      <option value="R$">R$ — Brazilian Real</option>
+      <option value="Rp">Rp — Indonesian Rupiah</option>
+      <option value="₱">₱ — Philippine Peso</option>
+      <option value="৳">৳ — Bangladeshi Taka</option>
+      <option value="Rs">Rs — Pakistani / Sri Lankan Rupee</option>
+      <option value="MX$">MX$ — Mexican Peso</option>
+      <option value="¥">¥ — Yen / Yuan</option>
+    </select>
+    <span class="note" style="margin:0">A symbol, not a conversion — enter all amounts in one currency and the results come back in it.</span>
+  </div>
+
+  <!-- ① Simple payback -->
+  <h2>① Will this measure pay for itself?</h2>
+  <p>For any upgrade — insulation, a rain barrel, a showerhead, sealing — divide what it costs by what it saves each year. The guide's rule of thumb: <strong>under 5 years is almost certainly financially sound</strong> over the measure's lifetime, because after payback the savings keep coming for years.</p>
+
+  <fieldset>
+    <legend>Measure payback</legend>
+    <p class="note" style="margin-top:0">Example starting points from the guide — tap one, then replace with your own quote and bill:</p>
+    <div class="presets" role="group" aria-label="Example measures">
+      <button class="preset" data-cost="30" data-save="60" data-life="15">LED bulb swap</button>
+      <button class="preset" data-cost="15" data-save="80" data-life="10">Air sealing (caulk)</button>
+      <button class="preset" data-cost="10" data-save="25" data-life="10">Faucet aerators</button>
+      <button class="preset" data-cost="400" data-save="120" data-life="30">Roof insulation top-up</button>
+      <button class="preset" data-cost="1400" data-save="350" data-life="13">Heat pump water heater</button>
+    </div>
+    <label for="m-cost">Total cost of the measure <span class="hint">materials + any installation, from your actual quote</span></label>
+    <input type="number" id="m-cost" min="0" step="any" inputmode="decimal" placeholder="e.g. 400">
+    <label for="m-save">Saving per year on your bills <span class="hint">compare two bills, or use the % savings in the guide's chapter tables against your annual spend</span></label>
+    <input type="number" id="m-save" min="0" step="any" inputmode="decimal" placeholder="e.g. 120">
+    <label for="m-life">Expected lifetime of the measure (years) <span class="hint">optional — insulation 30+, LED 15, heat pump 12–15</span></label>
+    <input type="number" id="m-life" min="0" step="any" inputmode="decimal" placeholder="e.g. 30">
+    <div class="result" id="m-result" hidden aria-live="polite"></div>
+  </fieldset>
+
+  <!-- ② Appliance comparison -->
+  <h2>② Which appliance is cheaper to own?</h2>
+  <p>The energy label — ENERGY STAR, the EU A-to-G letter, India's BEE stars, the Energy Rating Label — is the second price tag printed on the box. Stars and letters are shortcuts; the number that matters is the same everywhere: <strong>kilowatt-hours per year</strong>. Find it on both labels and let the arithmetic decide.</p>
+
+  <fieldset>
+    <legend>Two appliances, total cost of ownership</legend>
+    <p class="note" style="margin-top:0">Prefilled with the guide's fridge example — replace every number with the two machines in front of you:</p>
+    <div class="grid cols-2">
+      <div>
+        <label for="a-price">Appliance A — shelf price</label>
+        <input type="number" id="a-price" min="0" step="any" inputmode="decimal" value="800">
+        <label for="a-kwh">Appliance A — kWh per year <span class="hint">from the energy label</span></label>
+        <input type="number" id="a-kwh" min="0" step="any" inputmode="decimal" value="250">
+      </div>
+      <div>
+        <label for="b-price">Appliance B — shelf price</label>
+        <input type="number" id="b-price" min="0" step="any" inputmode="decimal" value="600">
+        <label for="b-kwh">Appliance B — kWh per year</label>
+        <input type="number" id="b-kwh" min="0" step="any" inputmode="decimal" value="400">
+      </div>
+    </div>
+    <label for="tariff">Your electricity price per kWh <span class="hint">from your latest bill: total amount ÷ total kWh</span></label>
+    <input type="number" id="tariff" min="0" step="any" inputmode="decimal" value="0.20">
+    <label for="years">Years you expect it to serve <span class="hint">fridge 10–15, washing machine 8–12, AC 10–15</span></label>
+    <input type="number" id="years" min="0" step="any" inputmode="decimal" value="12">
+
+    <div class="tags" id="tagrow" hidden>
+      <div class="pricetag">
+        <div class="tagname">First price tag — shelf</div>
+        <div class="tagval" id="tag-shelf">—</div>
+        <div class="tagsub" id="tag-shelf-sub"></div>
+      </div>
+      <div class="pricetag second">
+        <div class="tagname">Second price tag — lifetime energy</div>
+        <div class="tagval" id="tag-life">—</div>
+        <div class="tagsub" id="tag-life-sub"></div>
+      </div>
+    </div>
+    <div class="result" id="a-result" hidden aria-live="polite"></div>
+  </fieldset>
+
+  <!-- ③ Solar first pass -->
+  <h2>③ Is the solar quote honest?</h2>
+  <p>Before any salesperson holds your attention, hold a first-pass number: <strong>system size (kW) × your region's specific yield (kWh per kW per year)</strong>. Specific yield runs from roughly 1,000 in cloudy high-latitude regions to 1,800+ in desert sun — the free <a href="https://globalsolaratlas.info/">Global Solar Atlas</a> gives the figure for your exact location. If an installer's promise runs far above this arithmetic, ask them to show their working. And remember the guide's order of operations: <em>seal, insulate, and shade first</em> — every kilowatt-hour you stop needing is panel you don't have to buy.</p>
+
+  <fieldset>
+    <legend>Solar payback, first pass</legend>
+    <div class="presets" role="group" aria-label="Example yields">
+      <button class="preset" data-yield="950">Cloudy high latitude (~950)</button>
+      <button class="preset" data-yield="1300">Temperate (~1,300)</button>
+      <button class="preset" data-yield="1700">Hot &amp; sunny (~1,700)</button>
+    </div>
+    <label for="s-kw">System size (kW) <span class="hint">from the quote — a typical home system is 3–6 kW</span></label>
+    <input type="number" id="s-kw" min="0" step="any" inputmode="decimal" placeholder="e.g. 3">
+    <label for="s-yield">Specific yield for your location (kWh/kW/year) <span class="hint">look it up on the Global Solar Atlas, or use a band above</span></label>
+    <input type="number" id="s-yield" min="0" step="any" inputmode="decimal" placeholder="e.g. 1300">
+    <label for="s-cost">Total installed cost from the quote</label>
+    <input type="number" id="s-cost" min="0" step="any" inputmode="decimal" placeholder="e.g. 4500">
+    <label for="s-tariff">Your electricity price per kWh <span class="hint">uses the value from tool ② if you leave this blank</span></label>
+    <input type="number" id="s-tariff" min="0" step="any" inputmode="decimal" placeholder="e.g. 0.20">
+    <div class="result" id="s-result" hidden aria-live="polite"></div>
+  </fieldset>
+
+  <h2>Where this sits in the guide</h2>
+  <div class="grid cols-3">
+    <div class="card win">
+      <h3>Tier 1 · under $100</h3>
+      <p>LED bulbs, air sealing, aerators, pipe insulation. Payback 6 months to 2 years, in every climate. Start here.</p>
+    </div>
+    <div class="card number">
+      <h3>Tier 2 · $100–500</h3>
+      <p>Thermostat, rain barrel, ceiling fans or insulation top-up depending on your zone. Payback 2–6 years.</p>
+    </div>
+    <div class="card wisdom">
+      <h3>Tier 3 · $500+</h3>
+      <p>Heat pumps, solar PV, deep retrofit — usually financed. Payback 5–15 years. Do the cheap tiers first: a tightened home needs a smaller, cheaper machine.</p>
+    </div>
+  </div>
+  <p class="note">Chapter 6 of the guide carries the full financial ladder, the installer question lists for heat pumps and solar, and the appliance label systems by country. <a href="https://doi.org/10.5281/zenodo.20365825">Read the guide (free PDF)</a>.</p>
+</main>
+
+<footer class="site">
+  <div class="inner">
+    <p>Building Green, Made Simple · © 2026 Pradeep Angiras · CC BY-NC-ND 4.0 ·
+       <a href="https://doi.org/10.5281/zenodo.20365825">DOI 10.5281/zenodo.20365825</a></p>
+    <p>This calculator is an educational decision aid, not financial advice. Energy prices, incentives, and equipment lifetimes vary — verify locally before committing money. All arithmetic runs in your browser; nothing you enter is stored or sent anywhere.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var sym = "$";
+  var $ = function(id){ return document.getElementById(id); };
+
+  function fmt(n){
+    if (!isFinite(n)) return "—";
+    var r = Math.abs(n) >= 100 ? Math.round(n) : Math.round(n*10)/10;
+    return sym + r.toLocaleString();
+  }
+  function yrs(n){
+    if (!isFinite(n)) return "—";
+    if (n < 1) return Math.round(n*12) + " months";
+    return (Math.round(n*10)/10) + " years";
+  }
+  function num(id){
+    var v = parseFloat($(id).value);
+    return isFinite(v) && v >= 0 ? v : null;
+  }
+
+  /* ① Measure payback */
+  function calcMeasure(){
+    var cost = num("m-cost"), save = num("m-save"), life = num("m-life");
+    var box = $("m-result");
+    if (cost === null || save === null){ box.hidden = true; return; }
+    if (save === 0){
+      box.hidden = false; box.className = "result warn";
+      box.innerHTML = "<strong class='big'>No payback</strong>With zero annual saving this measure never recovers its cost. Check the saving estimate, or treat it as a comfort or resilience purchase rather than a financial one.";
+      return;
+    }
+    var pb = cost / save;
+    var html = "<strong class='big'>Payback: " + yrs(pb) + "</strong>";
+    if (life !== null && life > 0){
+      if (life <= pb){
+        box.className = "result warn";
+        html += "It wears out around the time it pays back — net saving roughly zero. ";
+        html += "Worth doing only for comfort, resilience, or carbon reasons, not money.";
+      } else {
+        box.className = "result";
+        var net = save * (life - pb);
+        html += "Then it keeps saving <strong>" + fmt(save) + " a year</strong> for the remaining " + Math.round(life - pb) + " years — about <strong>" + fmt(net) + " net</strong> over its life.";
+      }
+    } else {
+      box.className = "result";
+      html += pb <= 5
+        ? "Under the guide's 5-year line — almost certainly financially sound over the measure's lifetime."
+        : "Over 5 years. Can still make sense for long-lived measures like insulation; add the lifetime above to see the full picture.";
+    }
+    box.innerHTML = html + "<p class='verdict'>Payback = cost ÷ annual saving. After payback, savings continue for the remaining life of the measure — often 10–20 more years.</p>";
+    box.hidden = false;
+  }
+
+  /* ② Appliance second price tag */
+  function calcAppliance(){
+    var pa = num("a-price"), ka = num("a-kwh"), pb_ = num("b-price"), kb = num("b-kwh"),
+        t = num("tariff"), y = num("years");
+    var box = $("a-result"), row = $("tagrow");
+    if ([pa,ka,pb_,kb,t,y].some(function(v){ return v === null; })){ box.hidden = true; row.hidden = true; return; }
+    var lifeA = ka*t*y, lifeB = kb*t*y;
+    var totalA = pa + lifeA, totalB = pb_ + lifeB;
+    var cheaper = totalA <= totalB ? "A" : "B";
+    var diff = Math.abs(totalA - totalB);
+    var show = cheaper === "A" ? {p:pa,l:lifeA} : {p:pb_,l:lifeB};
+    $("tag-shelf").textContent = fmt(show.p);
+    $("tag-shelf-sub").textContent = "Appliance " + cheaper + ", at the till";
+    $("tag-life").textContent = fmt(show.l);
+    $("tag-life-sub").textContent = (cheaper==="A"?ka:kb) + " kWh/yr × " + sym + t + " × " + y + " years";
+    row.hidden = false;
+    box.className = "result";
+    box.innerHTML = "<strong class='big'>Appliance " + cheaper + " is " + fmt(diff) + " cheaper to own</strong>"
+      + "Total cost of ownership over " + y + " years — A: <strong>" + fmt(totalA) + "</strong> (" + fmt(pa) + " shelf + " + fmt(lifeA) + " energy) · B: <strong>" + fmt(totalB) + "</strong> (" + fmt(pb_) + " shelf + " + fmt(lifeB) + " energy)."
+      + "<p class='verdict'>Be suspicious of a bargain on anything that runs all day. The shelf is where the discount is; the meter is where you pay it back.</p>";
+    box.hidden = false;
+  }
+
+  /* ③ Solar first pass */
+  function calcSolar(){
+    var kw = num("s-kw"), yld = num("s-yield"), cost = num("s-cost");
+    var t = num("s-tariff"); if (t === null) t = num("tariff");
+    var box = $("s-result");
+    if (kw === null || yld === null){ box.hidden = true; return; }
+    var out = kw * yld;
+    var html = "<strong class='big'>≈ " + Math.round(out).toLocaleString() + " kWh per year</strong>";
+    if (t !== null){
+      var val = out * t;
+      html += "Worth about <strong>" + fmt(val) + " a year</strong> at your tariff";
+      if (cost !== null && val > 0){
+        html += " — first-pass payback <strong>" + yrs(cost/val) + "</strong> on the quoted price";
+      }
+      html += ".";
+    }
+    html += "<p class='verdict'>A first pass, not a forecast: shading, panel orientation, export rates, and incentives move the real number. Ask the installer for their worst-month figure and the shade analysis for your actual roof — the guide's five solar questions are in Chapter 6.</p>";
+    box.className = "result"; box.innerHTML = html; box.hidden = false;
+  }
+
+  /* Wiring */
+  $("currency").addEventListener("change", function(){ sym = this.value; calcMeasure(); calcAppliance(); calcSolar(); });
+  ["m-cost","m-save","m-life"].forEach(function(id){ $(id).addEventListener("input", calcMeasure); });
+  ["a-price","a-kwh","b-price","b-kwh","tariff","years"].forEach(function(id){ $(id).addEventListener("input", function(){ calcAppliance(); calcSolar(); }); });
+  ["s-kw","s-yield","s-cost","s-tariff"].forEach(function(id){ $(id).addEventListener("input", calcSolar); });
+
+  document.querySelectorAll(".preset").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      if (this.dataset.yield){ $("s-yield").value = this.dataset.yield; calcSolar(); return; }
+      $("m-cost").value = this.dataset.cost;
+      $("m-save").value = this.dataset.save;
+      $("m-life").value = this.dataset.life;
+      calcMeasure();
+    });
+  });
+
+  calcAppliance(); /* fridge example renders on load so the page never opens empty */
+})();
+</script>
+</body>
+</html>
