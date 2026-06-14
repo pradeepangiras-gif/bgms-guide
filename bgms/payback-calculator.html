@@ -79,7 +79,7 @@
 
   <!-- ① Simple payback -->
   <h2>① Will this measure pay for itself?</h2>
-  <p>For any upgrade — insulation, a rain barrel, a showerhead, sealing — divide what it costs by what it saves each year. The guide's rule of thumb: <strong>under 5 years is almost certainly financially sound</strong> over the measure's lifetime, because after payback the savings keep coming for years.</p>
+  <p>For any upgrade, divide what it costs by what it saves each year — that gives you the <strong>payback period</strong>, the time until the savings have covered the cost. Payback is a useful screen, but it is only half the picture: what matters is how the saving compares to the measure's whole life. A cheap measure that pays back in two years and lasts fifteen is clearly worth it. A larger one — a heat pump, solar, deep insulation — can carry a longer payback and still be the right call once you weigh its full lifespan, the comfort and resilience it buys, and the rising cost of the energy it offsets. Add the expected lifetime below and the calculator shows the net saving over the measure's life, not just the time to break even.</p>
 
   <fieldset>
     <legend>Measure payback</legend>
@@ -234,11 +234,9 @@
       }
     } else {
       box.className = "result";
-      html += pb <= 5
-        ? "Under the guide's 5-year line — almost certainly financially sound over the measure's lifetime."
-        : "Over 5 years. Can still make sense for long-lived measures like insulation; add the lifetime above to see the full picture.";
+      html += "To judge this properly, add the expected lifetime above — payback alone doesn't tell you whether the measure earns its keep. As a screen: a short payback on a long-lived measure is a strong sign; a payback approaching the measure's own lifespan is a weak one.";
     }
-    box.innerHTML = html + "<p class='verdict'>Payback = cost ÷ annual saving. After payback, savings continue for the remaining life of the measure — often 10–20 more years.</p>";
+    box.innerHTML = html + "<p class='verdict'>Payback = cost ÷ annual saving. It's a screening number, not the whole decision: lifespan, comfort, resilience, and future energy prices all weigh in — which is why long-lived measures like insulation or a heat pump can be worth a longer payback.</p>";
     box.hidden = false;
   }
 
