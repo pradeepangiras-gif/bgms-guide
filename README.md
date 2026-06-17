@@ -24,7 +24,7 @@ assets/measures.js    Measure dataset with cost band, ease, payback band, horizo
   source supports them (DOE Building America, NRCan, IEA, WHO, ENERGY STAR — same
   sources as the guide's research log). Stale numbers in a tool are worse than no
   tool; bands and physics don't go stale.
-- **City lookup is a curated list, not geocoding.** ~190 cities mapped to the six
+- **City lookup is a curated list, not geocoding.** ~518 cities mapped to the six
   zones via simplified Köppen-Geiger; borderline cities carry an honest note, and
   unlisted cities fall back to a manual zone chooser. No external service to break
   or to track users.
