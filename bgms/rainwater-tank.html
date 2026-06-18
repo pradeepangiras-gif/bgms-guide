@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="/assets/icons/bgms-favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/bgms-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/bgms-16x16.png">
+<link rel="apple-touch-icon" href="/assets/icons/bgms-apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rainwater Tank Sizer — Building Green, Made Simple</title>
+<meta name="description" content="Work out what size rainwater tank your home actually needs, from your roof, your rainfall, and your dry season — with an honest read on whether you are supply-limited or demand-limited, using the method behind the current rainwater standard.">
+<meta property="og:title" content="Rainwater Tank Sizer — Building Green, Made Simple">
+<meta property="og:description" content="What size rainwater tank does your home need? Enter your roof, rainfall, and dry season for an evidence-based estimate, with the honest catch most calculators leave out.">
+<meta property="og:url" content="https://angiras.co/bgms/rainwater-tank.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://angiras.co/bgms/assets/bgms-share.png">
+<meta name="twitter:image" content="https://angiras.co/bgms/assets/bgms-share.png">
+<meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/bgms.css">
+<style>
+/* Page-scoped styles. Inherit site fonts and colours; add only the calculator parts. */
+.calc fieldset{border:1px solid var(--rule);border-radius:8px;padding:1rem 1.1rem;margin:0 0 1rem}
+.calc legend{font-family:var(--font-head);font-weight:700;padding:0 .4rem;color:var(--forest)}
+.calc label{display:block;font-weight:600;font-size:.92rem;margin:.65rem 0 .2rem}
+.calc label .hint{display:block;font-weight:400;font-size:.82rem;color:var(--stone)}
+.calc input[type=number],.calc select{width:100%;max-width:20rem;padding:.55rem .7rem;font:inherit;border:2px solid var(--forest);border-radius:6px;background:#fff;color:var(--charcoal)}
+.presets{display:flex;flex-wrap:wrap;gap:.4rem;margin:.4rem 0 .2rem}
+.preset{font-family:var(--font-head);font-size:.8rem;font-weight:600;padding:.3rem .7rem;border:1px solid var(--forest);border-radius:999px;background:#fff;color:var(--forest);cursor:pointer}
+.preset:hover{background:var(--leaf-tint)}
+.preset[aria-pressed=true]{background:var(--forest);color:#fff}
+.result{border-left:6px solid var(--forest);background:var(--leaf-tint);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.2rem 0}
+.result strong.big{font-family:var(--font-head);font-weight:800;font-size:1.5rem;display:block;margin-bottom:.3rem;color:var(--forest-deep)}
+.result.warn{border-left-color:var(--terracotta);background:#F6E8DA}
+.result.warn strong.big{color:var(--terracotta)}
+.result .regime{font-family:var(--font-head);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:inline-block;padding:.15rem .55rem;border-radius:999px;margin-bottom:.5rem}
+.regime.supply{background:var(--terracotta);color:#fff}
+.regime.demand{background:var(--forest);color:#fff}
+.result .verdict{font-size:.9rem;margin:.5rem 0 0;color:var(--charcoal)}
+.eff{margin:.6rem 0 0;padding:.6rem .8rem;background:#fff;border:1px dashed var(--rule);border-radius:6px;font-size:.92rem}
+.eff strong{color:var(--forest)}
+.unit-bar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;border:1px dashed var(--rule);border-radius:8px;padding:.6rem .9rem;margin:1rem 0 1.6rem}
+.unit-bar label{margin:0;font-weight:600}
+.caveats{font-size:.9rem}
+.caveats h3{margin-top:1.2rem}
+.caveats p{margin:.4rem 0}
+.ceiling{border-left:6px solid var(--charcoal);background:#EFEFEF;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.2rem 0}
+.ceiling strong.big{font-family:var(--font-head);font-weight:800;font-size:1.2rem;display:block;margin-bottom:.3rem}
+</style>
+</head>
+<body>
+<div class="zone-band" aria-hidden="true"><span class="hh"></span><span class="hd"></span><span class="tm"></span><span class="co"></span><span class="ha"></span><span class="mx"></span></div>
+<header class="site">
+  <div class="inner">
+    <a class="brand" href="index.html">Building Green, <em>Made Simple</em></a>
+    <nav class="site" aria-label="Site">
+      <a href="index.html">The Guide</a>
+      <a href="zone-finder.html">Find Your Zone</a>
+      <a href="measure-picker.html">Measure Picker</a>
+      <a href="payback-calculator.html">Payback Calculator</a>
+      <a href="rainwater-tank.html" aria-current="page">Rainwater Tank</a>
+    </nav>
+  </div>
+</header>
+
+<main class="calc">
+  <p class="kicker">Free tool · works offline · no tracking, no account</p>
+  <h1>More rain does not mean a bigger tank.<br>This page shows you why.</h1>
+  <p class="lede">Most tank calculators ask only how much water lands on your roof. That is the easy half. The size of the tank you actually need is set by something else: how long you go between useful rains. A home in a wet climate with a short dry spell needs a small tank. A home in a dry climate with a long dry season needs a much larger one, and may still never fill it. This tool works the harder half, using the dry-period method behind the current rainwater standard, and tells you honestly which situation you are in.</p>
+
+  <div class="unit-bar">
+    <label for="units">Units:</label>
+    <select id="units" aria-label="Measurement units" style="max-width:16rem">
+      <option value="metric">Metric — m², mm, litres</option>
+      <option value="imperial">Imperial — ft², inches, gallons</option>
+    </select>
+    <span class="note" style="margin:0">All maths runs in your browser. Nothing you enter is stored or sent anywhere.</span>
+  </div>
+
+  <h2>① Your roof and your rainfall</h2>
+  <fieldset>
+    <legend>Catchment</legend>
+    <label for="area">Roof footprint area (<span class="u-area">m²</span>) <span class="hint">The area the roof covers on the ground, not the sloped surface. Rain is measured on the flat, so slope does not add catchment.</span></label>
+    <input type="number" id="area" min="0" step="any" inputmode="decimal" placeholder="e.g. 60">
+
+    <label for="coverage">How much of the roof drains to the tank? <span class="hint">A tank on one side of a pitched roof collects only that side. Picking the whole roof when only half drains will overstate what you can collect.</span></label>
+    <select id="coverage">
+      <option value="0.5">One side of a pitched roof (tank on that side)</option>
+      <option value="1">Whole roof — flat, or all downpipes connected</option>
+      <option value="0.3">One section or wing only</option>
+    </select>
+
+    <label for="material">Roof material <span class="hint">Sets how much of the rain runs off rather than soaking in or evaporating.</span></label>
+    <select id="material">
+      <option value="0.85">Metal / corrugated</option>
+      <option value="0.85">Tile</option>
+      <option value="0.80">Concrete / asphalt</option>
+      <option value="0.70">Gravel</option>
+      <option value="0.40">Green / vegetated roof</option>
+    </select>
+    <p class="note" id="greenroof-note" hidden>A green roof holds water back on purpose, which is what makes it good for stormwater control and a weak choice for harvesting. Expect both a lower yield and a more variable one than a hard roof of the same size.</p>
+
+    <label for="rainfall">Average annual rainfall (<span class="u-depth">mm</span>) <span class="hint">From any weather service for your city, or your <a href="zone-finder.html">BGMS climate zone</a> gives a typical range.</span></label>
+    <input type="number" id="rainfall" min="0" step="any" inputmode="decimal" placeholder="e.g. 800">
+  </fieldset>
+
+  <h2>② Your dry season</h2>
+  <fieldset>
+    <legend>The number that decides the answer</legend>
+    <p class="note" style="margin-top:0">Pick the climate that fits you. For dry and seasonal climates this tool will not guess for you, because within those zones the dry season varies too much for one number to be honest. Enter your own where asked.</p>
+    <div class="presets" role="group" aria-label="Climate zone">
+      <button class="preset" data-zone="tm" data-dry="21">Temperate · even rainfall</button>
+      <button class="preset" data-zone="hh" data-dry="45">Hot-humid · short dry spell</button>
+      <button class="preset" data-zone="hd" data-dry="">Hot-dry · enter your own</button>
+      <button class="preset" data-zone="mx" data-dry="">Mixed / monsoon · enter your own</button>
+      <button class="preset" data-zone="ha" data-dry="">High altitude · enter your own</button>
+      <button class="preset" data-zone="co" data-dry="">Cold / subarctic · freeze, not drought</button>
+    </div>
+    <label for="dry">Length of your dry season (days) <span class="hint" id="dry-hint">Count the months that typically get little to no rain where you live, times about 30.</span></label>
+    <input type="number" id="dry" min="0" max="365" step="any" inputmode="decimal" placeholder="e.g. 120">
+    <p class="note" id="cold-note" hidden>In cold and subarctic climates the limit is usually freezing, not lack of rain. This estimate assumes you can keep stored water from freezing through the period you enter. An unheated outdoor tank in a hard winter may need to be drained and bypassed for those months instead of simply made larger.</p>
+  </fieldset>
+
+  <h2>③ What you would use it for</h2>
+  <fieldset>
+    <legend>Non-potable demand</legend>
+    <p class="note" style="margin-top:0">Rainwater here is for non-potable use only: garden, toilet flushing, laundry, cleaning. Drinking, cooking, and bathing need treatment and are outside this tool.</p>
+    <label for="people">People in the household</label>
+    <input type="number" id="people" min="1" step="1" inputmode="numeric" placeholder="e.g. 4" value="4">
+    <label style="margin-bottom:.4rem">Uses to supply from rainwater</label>
+    <div class="presets" role="group" aria-label="Water uses">
+      <button class="preset use" data-use="toilet" aria-pressed="true">Toilet flushing</button>
+      <button class="preset use" data-use="laundry">Laundry</button>
+      <button class="preset use" data-use="garden">Garden watering</button>
+    </div>
+    <label for="garden-level" id="garden-wrap" hidden>Garden watering level <span class="hint">Garden demand peaks in the dry months, exactly when supply is lowest.</span></label>
+    <select id="garden-level" hidden style="max-width:16rem">
+      <option value="20">Light — occasional (~20 L/day)</option>
+      <option value="50" selected>Moderate (~50 L/day)</option>
+      <option value="100">Heavy (~100 L/day)</option>
+    </select>
+  </fieldset>
+
+  <div class="result" id="result" hidden aria-live="polite"></div>
+  <div class="ceiling" id="ceiling" hidden aria-live="polite"></div>
+
+  <h2>How this tool works it out</h2>
+  <p>Two forces set the answer. <strong>Supply</strong> is how much rain you can catch: roof area, the share that drains to the tank, your rainfall, and how much runs off the roof material. <strong>Demand</strong> is how much you draw each day. The tank exists to carry your demand across the gap between rains, so the dry season length is what drives its size.</p>
+  <div class="grid cols-2">
+    <div class="card win">
+      <h3>Demand-limited</h3>
+      <p>You collect more over the year than you use, so the only question is bridging the dry spell. The tank is sized to carry you through it, and a modest one usually does. Wetter climates land here.</p>
+    </div>
+    <div class="card number">
+      <h3>Supply-limited</h3>
+      <p>You cannot catch enough over the year to meet your demand. Rainwater becomes a supplement, not a sole supply. A bigger tank past a point just sits empty. Drier climates land here, which is why the dry-climate answer is often "use less", not "store more".</p>
+    </div>
+  </div>
+
+  <h2 class="caveats" style="margin-bottom:0">Before you buy or build</h2>
+  <div class="caveats">
+    <h3>It is a supplement, not a guarantee</h3>
+    <p>A tank is sized for a typical dry season, not a worst-case drought. Keep a mains or other backup.</p>
+    <h3>The tank is only part of the system</h3>
+    <p>A working setup also needs a first-flush diverter, a mesh screen against debris and mosquitoes, an overflow routed away from the foundation, and a base built for a full tank. Water weighs about one kilogram per litre, so a 5,000 L tank holds five tonnes.</p>
+    <h3>Underground and buried tanks need an engineer</h3>
+    <p>A buried tank is pushed inward by soil and groundwater and outward by the water inside, and those pressures do not stay balanced as it fills and empties. A half-full underground tank can carry real, uneven loads on its walls. That is a structural design question, not a sizing one. This tool gives a target volume. It cannot tell you wall thickness, bedding, or whether a site can take it.</p>
+    <h3>Method and code</h3>
+    <p>This estimate uses the dry-period demand approach that underpins on-site rainwater sizing, consistent in principle with the current standard BS EN 16941-1:2024, and the constant-daily-demand simplification established by Fewkes (1999). It is a planning estimate, not certification of compliance with that standard or any local code. Codes and permit rules vary, and some places restrict or require rainwater systems. Verify locally before installing.</p>
+    <p class="note">Chapter 4 of the guide carries the full water chapter, the vernacular cistern traditions this method quietly agrees with, and the greywater options that pair with it. <a href="https://doi.org/10.5281/zenodo.20365824">Read the guide (free PDF)</a>.</p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="inner">
+    <p>Building Green, Made Simple · © 2026 Pradeep Angiras · CC BY-NC-ND 4.0 ·
+       <a href="https://doi.org/10.5281/zenodo.20365824">DOI 10.5281/zenodo.20365824</a></p>
+    <p>This calculator is an educational decision aid, not engineering or financial advice. Rainfall, demand, and site conditions vary — verify locally before committing money or building anything. All arithmetic runs in your browser; nothing you enter is stored or sent anywhere.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var units = "metric";
+  var CEILING_L = 25000;          /* household advisory ceiling, litres */
+  var PER = { toilet:30, laundry:18 };   /* L/person/day */
+  var PER_EFF = { toilet:20, laundry:14 }; /* efficient-fixture L/person/day */
+  var uses = { toilet:true, laundry:false, garden:false };
+
+  /* ---- unit helpers ---- */
+  function toM2(v){ return units==="imperial" ? v*0.092903 : v; }
+  function toMM(v){ return units==="imperial" ? v*25.4 : v; }
+  function fromL(v){ return units==="imperial" ? v*0.264172 : v; }
+  function volUnit(){ return units==="imperial" ? "gal" : "L"; }
+  function roundVol(L){
+    /* round in litres, then convert for display */
+    var r = L < 1000 ? Math.round(L/50)*50 : Math.round(L/500)*500;
+    return r;
+  }
+  function fmtVol(L){
+    var r = roundVol(L);
+    var shown = fromL(r);
+    var n = shown >= 1000 ? Math.round(shown).toLocaleString() : Math.round(shown/ (units==="imperial"?5:50))*(units==="imperial"?5:50);
+    return Math.round(shown).toLocaleString() + " " + volUnit();
+  }
+  function fmtL(L){ return Math.round(fromL(L)).toLocaleString() + " " + volUnit(); }
+
+  /* ---- demand ---- */
+  function dailyDemand(eff){
+    var people = parseFloat($("people").value); if(!(people>0)) people = 0;
+    var table = eff ? PER_EFF : PER;
+    var d = 0;
+    if (uses.toilet) d += people * table.toilet;
+    if (uses.laundry) d += people * table.laundry;
+    if (uses.garden){
+      var g = parseFloat($("garden-level").value)||0;
+      d += eff ? Math.max(g*0.6, 0) : g; /* efficient garden = one tier down, approx */
+    }
+    return d;
+  }
+
+  function compute(){
+    var areaRaw = parseFloat($("area").value);
+    var rainRaw = parseFloat($("rainfall").value);
+    var F = parseFloat($("coverage").value);
+    var C = parseFloat($("material").value);
+    var Td = parseFloat($("dry").value);
+    var D = dailyDemand(false);
+
+    var box = $("result"), ceil = $("ceiling");
+    ceil.hidden = true;
+
+    if (!(areaRaw>0) || !(rainRaw>0) || !(Td>0) || !(D>0)){
+      box.hidden = true; return;
+    }
+
+    var A = toM2(areaRaw);
+    var R = toMM(rainRaw);
+    var Y = A * F * R * C;             /* annual yield, litres */
+    var AD = D * 365;                  /* annual demand, litres */
+    var coverage = Math.min(1, Y/AD);
+
+    var supplyLimited = Y < AD;
+    var Vtarget;
+    if (supplyLimited){
+      Vtarget = Math.min(D*Td, Y*(Td/365));
+    } else {
+      Vtarget = D*Td;
+    }
+    var Vfloor = D*14;
+
+    /* efficient-scenario target */
+    var Deff = dailyDemand(true);
+    var ADeff = Deff*365, Yeff = Y;
+    var VtargetEff = (Yeff < ADeff) ? Math.min(Deff*Td, Yeff*(Td/365)) : Deff*Td;
+
+    /* ---- ceiling case ---- */
+    if (Vtarget > CEILING_L){
+      box.hidden = true;
+      ceil.hidden = false;
+      ceil.innerHTML =
+        "<strong class='big'>Larger than a household tank: over " + fmtL(CEILING_L) + "</strong>"
+        + "Your demand and dry season point to a tank bigger than what a typical household installs. At this scale you are effectively planning an off-grid or near-off-grid water supply, and the design needs a structural engineer, especially for anything underground or partly buried."
+        + "<p class='verdict'>Before sizing a tank this large, look at using less: at efficient fixtures and lighter garden use, your target drops to about <strong>" + fmtVol(VtargetEff) + "</strong>. Cutting demand is almost always cheaper than building storage this big.</p>";
+      return;
+    }
+
+    /* ---- normal case ---- */
+    var html = "";
+    html += "<span class='regime " + (supplyLimited?"supply":"demand") + "'>" + (supplyLimited?"Supply-limited":"Demand-limited") + "</span>";
+    html += "<strong class='big'>Tank: about " + fmtVol(Vfloor) + " to " + fmtVol(Vtarget) + "</strong>";
+    html += "Your roof can collect about <strong>" + fmtL(Y) + " a year</strong> (" + Math.round(areaRaw).toLocaleString() + " " + (units==="imperial"?"ft²":"m²") + " × " + Math.round(F*100) + "% drained × rainfall × runoff).";
+
+    if (supplyLimited){
+      box.className = "result warn";
+      html += " Over a year that is less than your selected demand, so rainwater can cover about <strong>" + Math.round(coverage*100) + "%</strong> of it. Treat it as a supplement and keep a backup. A tank past the upper figure would mostly sit empty in a normal year.";
+    } else {
+      box.className = "result";
+      html += " That is more than you would use over a year, so the tank just has to bridge your dry season. The upper figure carries your household through it.";
+    }
+
+    /* efficiency fork, only when it meaningfully changes the picture */
+    if (VtargetEff < Vtarget*0.9 && (supplyLimited || Vtarget > 3000)){
+      html += "<div class='eff'>With efficient fixtures and lighter garden use, the same household needs only about <strong>" + fmtVol(VtargetEff) + "</strong>. Often the cheapest way to a smaller tank is to use less water, not to store more.</div>";
+    }
+
+    html += "<p class='verdict'>A planning band, not a single exact number: real tank sizing depends on how your rain is spread through the year, which varies even within a climate. Size toward the upper figure for more security, the lower for less cost and footprint.</p>";
+
+    box.innerHTML = html;
+    box.hidden = false;
+  }
+
+  /* ---- wiring ---- */
+  ["area","rainfall","dry","people","coverage","material","garden-level"].forEach(function(id){
+    $(id).addEventListener("input", compute);
+    $(id).addEventListener("change", compute);
+  });
+
+  /* material: show green-roof note */
+  $("material").addEventListener("change", function(){
+    var opt = this.options[this.selectedIndex].text.toLowerCase();
+    $("greenroof-note").hidden = opt.indexOf("green") === -1;
+  });
+
+  /* units toggle */
+  $("units").addEventListener("change", function(){
+    units = this.value;
+    var area = units==="imperial" ? "ft²" : "m²";
+    var depth = units==="imperial" ? "in" : "mm";
+    document.querySelectorAll(".u-area").forEach(function(e){ e.textContent = area; });
+    document.querySelectorAll(".u-depth").forEach(function(e){ e.textContent = depth; });
+    compute();
+  });
+
+  /* climate zone presets */
+  document.querySelectorAll(".preset[data-zone]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll(".preset[data-zone]").forEach(function(b){ b.removeAttribute("aria-pressed"); });
+      this.setAttribute("aria-pressed","true");
+      var dry = this.dataset.dry;
+      var zone = this.dataset.zone;
+      if (dry !== ""){ $("dry").value = dry; } else { $("dry").value = ""; $("dry").focus(); }
+      $("cold-note").hidden = (zone !== "co");
+      $("dry-hint").textContent = (dry==="")
+        ? "This zone varies too much for a default. Count the months with little to no rain where you live, times about 30."
+        : "Adjust if your local pattern differs.";
+      compute();
+    });
+  });
+
+  /* use toggles */
+  document.querySelectorAll(".preset.use").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var u = this.dataset.use;
+      uses[u] = !uses[u];
+      this.setAttribute("aria-pressed", uses[u] ? "true" : "false");
+      var showGarden = uses.garden;
+      $("garden-wrap").hidden = !showGarden;
+      $("garden-level").hidden = !showGarden;
+      compute();
+    });
+  });
+})();
+</script>
+</body>
+</html>
