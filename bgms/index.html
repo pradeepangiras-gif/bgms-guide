@@ -1,103 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="icon" href="/assets/icons/bgms-favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/bgms-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/bgms-16x16.png">
-<link rel="apple-touch-icon" href="/assets/icons/bgms-apple-touch-icon.png">
-<link rel="manifest" href="/assets/icons/site.webmanifest">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Building Green, Made Simple — Affordable, Grounded, and Built for Where You Live</title>
-<meta name="description" content="An open-access illustrated guide translating green building practice into affordable, climate-specific steps for homeowners, renters, and small businesses across six climate zones.">
-<meta property="og:title" content="Building Green, Made Simple">
-<meta property="og:description" content="A free illustrated guide and tools for affordable, climate-responsive green building across six climate zones.">
-<meta property="og:url" content="https://angiras.co/bgms/">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://angiras.co/bgms/assets/bgms-share.png">
-<meta name="twitter:image" content="https://angiras.co/bgms/assets/bgms-share.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/bgms.css">
+<title>Building Green Made Simple — Angiras & Co.</title>
+<meta name="description" content="An open-access, illustrated guide translating green building practices for homeowners, renters, community educators, and small businesses — across 6 climate zones and 500+ cities.">
+<link rel="stylesheet" href="../styles.css">
+<link rel="icon" href="../assets/brand/favicons/bgms-favicon.ico">
+<link rel="apple-touch-icon" href="../assets/brand/favicons/bgms-apple-touch-icon.png">
+<style>
+  body { background: var(--paper-bright); color: var(--ink-700); }
+  a { color: var(--forest-700); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* climate-zone hairline bar */
+  .zonebar { height: 6px; display: grid; grid-template-columns: repeat(6, 1fr); }
+  .zonebar i { display: block; }
+
+  /* top brand bar */
+  .topbar { position: sticky; top: 0; z-index: 40; background: rgba(253,251,246,0.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .topbar .in { max-width: 1120px; margin: 0 auto; padding: 11px 28px; display: flex; align-items: center; gap: 14px; }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .brand img { width: 38px; height: 38px; }
+  .brand b { font-family: var(--font-serif); font-size: 17px; color: var(--ink-900); font-weight: 600; line-height: 1; }
+  .brand small { font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-400); display: block; margin-top: 3px; }
+  .topbar nav { margin-left: auto; display: flex; gap: 20px; }
+  .topbar nav a { font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--ink-600); }
+  .topbar nav a:hover { color: var(--forest-700); text-decoration: none; }
+  .topbar .cta { font-family: var(--font-sans); font-size: 13.5px; font-weight: 600; color: #fff; background: var(--terracotta-500); padding: 8px 15px; border-radius: var(--radius-md); }
+  .topbar .cta:hover { background: var(--terracotta-700); }
+  @media (max-width: 760px){ .topbar nav { display: none; } }
+
+  /* hero */
+  .hero { padding: 64px 0 26px; }
+  .hero .eyebrow { display: block; margin-bottom: 18px; }
+  .hero h1 { font-size: 68px; line-height: 1.0; letter-spacing: -.025em; margin: 0 0 22px; color: var(--ink-900); }
+  .hero h1 em { font-style: italic; color: var(--forest-700); }
+  .hero .sub { font-size: 21px; line-height: 1.55; color: var(--ink-600); max-width: 60ch; margin: 0 0 26px; }
+  .hero .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+  .pill { font-family: var(--font-mono); font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: var(--radius-pill); background: var(--card); border: 1px solid var(--line-strong); color: var(--ink-600); display: inline-flex; align-items: center; gap: 7px; }
+  .pill svg { width: 14px; height: 14px; }
+  .hero .actions { display: flex; gap: 13px; flex-wrap: wrap; align-items: center; }
+  .btn { font-family: var(--font-sans); font-weight: 600; border-radius: var(--radius-md); cursor: pointer; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: all .15s; }
+  .btn svg { width: 18px; height: 18px; }
+  .btn-primary { background: var(--forest-700); color: #fff; padding: 13px 22px; font-size: 16px; }
+  .btn-primary:hover { background: var(--forest-800); text-decoration: none; }
+  .btn-secondary { background: transparent; color: var(--forest-700); border-color: var(--forest-700); padding: 12px 20px; font-size: 16px; }
+  .btn-secondary:hover { background: var(--forest-100); text-decoration: none; }
+  .byline { font-family: var(--font-sans); font-size: 14.5px; color: var(--ink-500); margin: 30px 0 0; }
+  .byline b { color: var(--ink-800,var(--ink-700)); font-weight: 600; }
+
+  /* promise band */
+  .promise { background: var(--forest-900); color: var(--text-on-dark); margin-top: 48px; }
+  .promise .in { max-width: 1120px; margin: 0 auto; padding: 64px 28px; }
+  .promise .lead { font-family: var(--font-serif); font-size: 36px; line-height: 1.25; color: #fff; max-width: 20ch; margin: 0 0 8px; font-style: italic; }
+  .promise .lead span { color: var(--sage-300); }
+  .promise p.intro { color: var(--text-on-dark-muted); font-size: 17px; max-width: 56ch; line-height: 1.6; margin: 14px 0 44px; }
+  .filters { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  @media (max-width: 760px){ .filters { grid-template-columns: 1fr; } }
+  .filter { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-top: 3px solid var(--fc); border-radius: var(--radius-lg); padding: 26px; }
+  .filter .n { font-family: var(--font-mono); font-size: 13px; color: var(--fc); }
+  .filter .ic { width: 40px; height: 40px; color: var(--fc); margin: 6px 0 12px; }
+  .filter .ic svg { width: 32px; height: 32px; }
+  .filter h3 { color: #fff; font-size: 22px; margin: 0 0 8px; }
+  .filter p { color: var(--text-on-dark-muted); font-size: 15px; line-height: 1.55; margin: 0; }
+
+  /* sections */
+  section.band { padding: 72px 0; }
+  .sec-head { max-width: 680px; margin-bottom: 38px; }
+  .sec-head .eyebrow { display: block; margin-bottom: 12px; }
+  .sec-head h2 { font-size: 38px; margin: 0 0 12px; }
+  .sec-head p { font-size: 17px; color: var(--ink-600); margin: 0; }
+
+  /* zones table */
+  .zones { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px){ .zones { grid-template-columns: 1fr; } }
+  .zrow { display: flex; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 18px 20px; box-shadow: var(--shadow-xs); border-left: 4px solid var(--zc); transition: box-shadow .2s, transform .2s; }
+  .zrow:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .zrow .zname { font-family: var(--font-sans); font-weight: 700; font-size: 16px; color: var(--zc); display: flex; align-items: center; gap: 8px; }
+  .zrow .zname .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--zc); }
+  .zrow .cities { font-family: var(--font-mono); font-size: 12px; color: var(--ink-400); margin: 5px 0 9px; }
+  .zrow .concern { font-size: 14px; color: var(--ink-600); line-height: 1.5; margin: 0; }
+  .zrow .concern b { color: var(--ink-800,var(--ink-700)); font-weight: 600; }
+
+  /* chapters */
+  .band-alt { background: var(--paper-deep); }
+  .chap-grid { display: grid; grid-template-columns: 340px 1fr; gap: 48px; align-items: center; }
+  @media (max-width: 820px){ .chap-grid { grid-template-columns: 1fr; } }
+  .chap-grid img { width: 100%; height: auto; border-radius: var(--radius-lg); display: block; }
+  .chaplist { list-style: none; margin: 0; padding: 0; counter-reset: ch; display: grid; grid-template-columns: 1fr 1fr; gap: 0 30px; }
+  @media (max-width: 560px){ .chaplist { grid-template-columns: 1fr; } }
+  .chaplist li { counter-increment: ch; display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .chaplist li::before { content: counter(ch, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; color: var(--terracotta-500); font-weight: 600; }
+  .chaplist b { font-family: var(--font-sans); font-size: 16px; font-weight: 600; color: var(--ink-900); display: block; line-height: 1.3; }
+  .chaplist span { font-size: 13px; color: var(--ink-500); }
+
+  /* wisdom + figures */
+  .wisdom-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 8px; }
+  @media (max-width: 820px){ .wisdom-grid { grid-template-columns: 1fr; } }
+  .wcard { background: var(--card-cream); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
+  .wcard img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--card); border-bottom: 1px solid var(--line-soft); }
+  .wcard .b { padding: 18px 20px; }
+  .wcard h4 { font-family: var(--font-serif); font-size: 19px; line-height: 1.2; margin: 0 0 8px; color: var(--ochre-600); }
+  .wcard p { font-size: 14px; color: var(--ink-600); line-height: 1.55; margin: 0; }
+
+  /* sample spread */
+  .sample { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; }
+  @media (max-width: 760px){ .sample { grid-template-columns: 1fr; } }
+  .keynum { }
+  .keynum .eyebrow { color: var(--terracotta-600); }
+  .keynum .v { font-family: var(--font-mono); font-weight: 600; font-size: 64px; line-height: 1; color: var(--forest-800); margin: 8px 0 6px; }
+  .keynum p { font-size: 17px; max-width: 40ch; margin: 0 0 6px; }
+  .keynum .src { font-size: 12.5px; color: var(--ink-400); }
+  .callout { display: flex; gap: 14px; padding: 20px 22px; border-radius: var(--radius-md); border-left: 3px solid var(--forest-700); background: var(--sage-100); }
+  .callout .ic { flex: none; margin-top: 2px; color: var(--forest-800); }
+  .callout .ic svg { width: 22px; height: 22px; }
+  .callout h4 { font-family: var(--font-serif); font-size: 18px; margin: 0 0 4px; color: var(--forest-800); }
+  .callout p { font-size: 15px; margin: 0; line-height: 1.55; }
+  .callout .cost { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--forest-700); }
+
+  /* tools */
+  .tools { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  @media (max-width: 860px){ .tools { grid-template-columns: 1fr 1fr; } }
+  .tool { display: flex; flex-direction: column; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-xs); text-decoration: none; transition: border-color .15s, box-shadow .2s, transform .2s; }
+  .tool:hover { border-color: var(--forest-500); box-shadow: var(--shadow-md); transform: translateY(-2px); text-decoration: none; }
+  .tool .ic { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; color: #fff; }
+  .tool .ic svg { width: 22px; height: 22px; }
+  .tool h4 { font-size: 17px; margin: 0; color: var(--ink-900); }
+  .tool p { font-size: 13.5px; color: var(--ink-600); margin: 0; line-height: 1.5; flex: 1; }
+  .tool .go { font-family: var(--font-mono); font-size: 12px; color: var(--forest-700); font-weight: 600; }
+
+  /* credibility / license */
+  .cred { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; }
+  @media (max-width: 760px){ .cred { grid-template-columns: 1fr; } }
+  .cred ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .cred li { display: flex; gap: 13px; font-size: 16px; line-height: 1.5; color: var(--ink-700); }
+  .cred li .ic { color: var(--forest-600); flex: none; margin-top: 2px; }
+  .cred li .ic svg { width: 20px; height: 20px; }
+  .cred li b { color: var(--ink-900); font-weight: 600; }
+  .license { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px; box-shadow: var(--shadow-sm); }
+  .license h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-400); margin: 0 0 14px; }
+  .license .doi { font-family: var(--font-mono); font-size: 13px; color: var(--ink-600); word-break: break-all; line-height: 1.6; }
+  .license .cite { font-size: 13px; color: var(--ink-600); line-height: 1.6; margin: 14px 0 0; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+  .license .cite b { color: var(--ink-900); }
+
+  /* footer */
+  .foot { background: var(--forest-950); color: var(--text-on-dark); padding: 52px 0 34px; }
+  .foot .top { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .foot img.mk { width: 52px; height: 52px; }
+  .foot b { font-family: var(--font-serif); font-size: 20px; color: #fff; font-weight: 600; }
+  .foot .sig { font-family: var(--font-mono); font-size: 12px; color: var(--sage-300); line-height: 1.8; margin-top: 22px; }
+  .foot a { color: var(--text-on-dark-muted); }
+  .foot a:hover { color: #fff; }
+  .foot .legal { border-top: 1px solid rgba(255,255,255,0.12); margin-top: 26px; padding-top: 18px; font-size: 12px; color: var(--text-on-dark-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+</style>
 </head>
 <body>
-<div class="zone-band" aria-hidden="true"><span class="hh"></span><span class="hd"></span><span class="tm"></span><span class="co"></span><span class="ha"></span><span class="mx"></span></div>
-<header class="site">
-  <div class="inner">
-    <a class="brand" href="index.html">Building Green, <em>Made Simple</em></a>
-    <nav class="site" aria-label="Site">
-      <a href="index.html" aria-current="page">The Guide</a>
-      <a href="zone-finder.html">Find Your Zone</a>
-      <a href="measure-picker.html">Measure Picker</a>
-      <a href="payback-calculator.html" aria-current="page">Payback Calculator</a>
-      <a href="rainwater-tank.html">Rainwater Tank</a>
+
+<div class="zonebar">
+  <i style="background:var(--zone-hot-humid)"></i><i style="background:var(--zone-hot-dry)"></i><i style="background:var(--zone-temperate)"></i><i style="background:var(--zone-cold)"></i><i style="background:var(--zone-high-altitude)"></i><i style="background:var(--zone-mixed)"></i>
+</div>
+
+<header class="topbar">
+  <div class="in">
+    <div class="brand">
+      <img src="../assets/brand/bgms-mark.png" alt="BGMS">
+      <div><b>Building Green Made Simple</b><small>An Angiras &amp; Co. guide</small></div>
+    </div>
+    <nav>
+      <a href="#promise">How it works</a>
+      <a href="#zones">Climate zones</a>
+      <a href="#chapters">Chapters</a>
+      <a href="#tools">Free tools</a>
     </nav>
+    <a class="cta" href="#read">Read the guide</a>
   </div>
 </header>
 
-<main>
-  <p class="kicker">Open access · CC BY-NC-ND 4.0 · Version 1.1</p>
-  <h1>The knowledge exists.<br>The translation doesn't exist until now.</h1>
-  <p class="lede">Twenty years of green building knowledge was written for people with budgets, consultants, and certifications in mind. <strong>Building Green, Made Simple</strong> is a 70-page illustrated guide for everyone else: homeowners, renters, community educators, and small businesses — across six climate zones, ranked by what you can actually afford.</p>
-
-  <p>
-    <a class="btn primary" href="https://doi.org/10.5281/zenodo.20365824">Read the guide (free PDF on Zenodo)</a>
-    <a class="btn" href="zone-finder.html">Find your climate zone →</a>
-  </p>
-  <p class="note">Permanent identifier: DOI 10.5281/zenodo.20365824 · Pradeep Angiras with Ghazaleh Sodeiri Jalili</p>
-
-  <h2>Three filters, in this order</h2>
-  <div class="grid cols-3">
-    <div class="card win">
-      <h3>① Economy</h3>
-      <p>Under $50 first. $50-500 second. Over $500 third, with financing noted. Affordability is the binding constraint, so it leads.</p>
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <span class="eyebrow">Open-access · Version 1.1 · CC BY-NC-ND 4.0</span>
+    <h1>Building green,<br><em>made simple.</em></h1>
+    <p class="sub">An illustrated guide that translates sound green-building science into practical, costed steps for homeowners, renters, community educators, and small businesses — across six climate zones and 500+ cities.</p>
+    <div class="meta">
+      <span class="pill"><svg data-l="globe"></svg>500+ cities</span>
+      <span class="pill"><svg data-l="layers"></svg>6 climate zones</span>
+      <span class="pill"><svg data-l="book-open"></svg>~70 pages</span>
+      <span class="pill"><svg data-l="unlock"></svg>Free &amp; open access</span>
     </div>
-    <div class="card number">
-      <h3>② Ease of adoption</h3>
-      <p>No trade skill first, one-afternoon effort second, professional install third. If it needs a consultant, the guide says so.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#read"><svg data-l="book-open"></svg>Read the guide</a>
+      <a class="btn btn-secondary" href="#tools"><svg data-l="compass"></svg>Find your climate zone</a>
     </div>
-    <div class="card wisdom">
-      <h3>③ Climate fit</h3>
-      <p>Every measure is flagged for the zones where it actually works — and flagged <em>against</em> where the physics turns on you.</p>
-    </div>
-  </div>
+    <p class="byline">By <b>Pradeep Angiras</b> &nbsp;·&nbsp; published by Angiras &amp; Co.™</p>
+  </section>
+</div>
 
-  <h2>Six zones, six different answers</h2>
-  <p>The same chapter gives different advice in Mumbai, Jaipur, London, Winnipeg, Cusco, and Delhi because the physics is different. The guide treats vernacular building intelligence (Rajasthani jaalis, Himalayan Kath-Kuni walls, North African courtyards) as substantive knowledge, not historical decoration.</p>
-  <table>
-    <thead><tr><th>Zone</th><th>Where</th><th>Primary indoor-air concern</th></tr></thead>
-    <tbody>
-      <tr><td><span class="chip hh">HH</span> Hot-Humid</td><td>e.g. Mumbai, Lagos, Singapore</td><td>Mould &amp; dampness — cross-ventilation first</td></tr>
-      <tr><td><span class="chip hd">HD</span> Hot-Dry</td><td>e.g. Jaipur, Riyadh, Phoenix</td><td>Dust-storm PM10 up to 20× WHO limit — filter and seal</td></tr>
-      <tr><td><span class="chip tm">TM</span> Temperate</td><td>e.g. London, Vancouver, Melbourne</td><td>Condensation on cold surfaces — the hidden mould risk</td></tr>
-      <tr><td><span class="chip co">CO</span> Cold / Subarctic</td><td>e.g. Helsinki, Winnipeg, Ulaanbaatar</td><td>Airtightness vs. ventilation — you need both</td></tr>
-      <tr><td><span class="chip ha">HA</span> High Altitude</td><td>e.g. Lhasa, Cusco, Addis Ababa</td><td>Cookstove smoke — PM2.5 up to 100× WHO guideline</td></tr>
-      <tr><td><span class="chip mx">MX</span> Mixed / Composite</td><td>e.g. Delhi, Beijing, Madrid</td><td>Outdoor air can invert ventilation logic entirely</td></tr>
-    </tbody>
-  </table>
-
-  <h2>Two free tools built from the guide</h2>
-  <div class="grid cols-2">
-    <div class="card">
-      <h3><a href="zone-finder.html">Climate Zone Finder</a></h3>
-      <p>Type your city. Get your zone, its primary risks, and the strategies that fit it — by budget band. Works offline; no tracking, no account.</p>
-    </div>
-    <div class="card">
-      <h3><a href="measure-picker.html">Climate-Zone Measure Picker</a></h3>
-      <p>Filter every measure in the guide by zone, budget, and skill level — with honest payback bands, decision horizons, and the climate caveats built in.</p>
+<!-- PROMISE + FILTERS -->
+<div class="promise" id="promise">
+  <div class="in">
+    <p class="lead">The knowledge exists. The translation <span>didn't — until now.</span></p>
+    <p class="intro">Most green-building knowledge is locked inside standards, rating systems, and technical papers written for specialists. BGMS keeps the rigour and removes the barrier: every recommendation is weighed against three plain filters before it earns a place on the page.</p>
+    <div class="filters">
+      <div class="filter" style="--fc:var(--ochre-300)">
+        <span class="n">Filter 01</span>
+        <div class="ic"><svg data-l="wallet"></svg></div>
+        <h3>Economy</h3>
+        <p>Can a household actually afford it? Costs are given in real ranges, with payback where it matters — not aspirational figures.</p>
+      </div>
+      <div class="filter" style="--fc:var(--teal-400)">
+        <span class="n">Filter 02</span>
+        <div class="ic"><svg data-l="wrench"></svg></div>
+        <h3>Ease</h3>
+        <p>Can it be done without specialist skills or equipment? If a measure needs a professional, we say so plainly.</p>
+      </div>
+      <div class="filter" style="--fc:var(--terracotta-400)">
+        <span class="n">Filter 03</span>
+        <div class="ic"><svg data-l="thermometer-sun"></svg></div>
+        <h3>Climate fit</h3>
+        <p>Does it actually work where you live? Every measure is flagged to the climate zones where it delivers — and where it doesn't.</p>
+      </div>
     </div>
   </div>
+</div>
 
-  <h2>Where the answer is no, the guide says so</h2>
-  Every measure had to clear affordability, ease, and climate fit, and where it didn't, it was cut or flagged. All numeric claims trace to Tier 1 or verified Tier 2 sources (IEA, UNEP, WHO, peer-reviewed journals, government statistics) logged in a <a href="assets/BGMS_Research_Log_v3.xlsx">public research log</a>.</p>
-</main>
-<footer class="site">
-  <div class="inner">
-    <p>Building Green, Made Simple · © 2026 Pradeep Angiras · CC BY-NC-ND 4.0 ·
-       <a href="https://doi.org/10.5281/zenodo.20365824">DOI 10.5281/zenodo.20365824</a></p>
-    <p>Climate zones are indicative, based on simplified Köppen-Geiger classification. The tools on this site are educational decision aids, not engineering advice;  verify costs, codes, and incentives locally.</p>
+<!-- ZONES -->
+<div class="wrap">
+  <section class="band" id="zones">
+    <div class="sec-head">
+      <span class="eyebrow">Six climate zones</span>
+      <h2>Find the climate you build in.</h2>
+      <p>Recommendations are organised by zone, because what cools a home in Jaipur can trap damp in Halifax. Each zone carries its own dominant comfort and indoor-air challenge.</p>
+    </div>
+    <div class="zones">
+      <div class="zrow" style="--zc:var(--zone-hot-humid)">
+        <div><div class="zname"><span class="dot"></span>Hot-Humid</div><div class="cities">Chennai · Singapore · Miami · Lagos</div><p class="concern"><b>Challenge:</b> rejecting heat while managing moisture, mould, and ventilation.</p></div>
+      </div>
+      <div class="zrow" style="--zc:var(--zone-hot-dry)">
+        <div><div class="zname"><span class="dot"></span>Hot-Dry</div><div class="cities">Jaipur · Phoenix · Cairo · Alice Springs</div><p class="concern"><b>Challenge:</b> daytime heat and dust; thermal mass and shading do the heavy lifting.</p></div>
+      </div>
+      <div class="zrow" style="--zc:var(--zone-temperate)">
+        <div><div class="zname"><span class="dot"></span>Temperate</div><div class="cities">London · Melbourne · Vancouver · Tokyo</div><p class="concern"><b>Challenge:</b> mixed seasons; balancing heating, cooling, and fresh air year-round.</p></div>
+      </div>
+      <div class="zrow" style="--zc:var(--zone-cold)">
+        <div><div class="zname"><span class="dot"></span>Cold / Subarctic</div><div class="cities">Halifax · Toronto · Oslo · Harbin</div><p class="concern"><b>Challenge:</b> retaining heat and avoiding condensation in a tight, well-insulated shell.</p></div>
+      </div>
+      <div class="zrow" style="--zc:var(--zone-high-altitude)">
+        <div><div class="zname"><span class="dot"></span>High Altitude</div><div class="cities">Leh · La Paz · Bogotá · Lhasa</div><p class="concern"><b>Challenge:</b> intense sun, cold nights, thin air; thermal mass and solar gain together.</p></div>
+      </div>
+      <div class="zrow" style="--zc:var(--zone-mixed)">
+        <div><div class="zname"><span class="dot"></span>Mixed / Composite</div><div class="cities">Delhi · Beijing · Madrid · Kabul</div><p class="concern"><b>Challenge:</b> hot summers and cold winters; strategies must flex across both.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CHAPTERS -->
+<div class="band-alt">
+  <div class="wrap">
+    <section class="band" id="chapters">
+      <div class="sec-head">
+        <span class="eyebrow">The guide · eight chapters</span>
+        <h2>Everything circles back to one thing: your home.</h2>
+        <p>Read start to finish, or jump to the chapter that matches the decision in front of you.</p>
+      </div>
+      <div class="chap-grid">
+        <img src="../assets/illustrations/wheel-eight-chapter.png" alt="Eight-chapter wheel centred on your home">
+        <ol class="chaplist">
+          <li><div><b>Why buildings matter</b><span>The 37% problem, in plain terms</span></div></li>
+          <li><div><b>Energy &amp; the envelope</b><span>Reduce demand before adding systems</span></div></li>
+          <li><div><b>Materials &amp; carbon</b><span>Low-carbon choices that last</span></div></li>
+          <li><div><b>Water conservation</b><span>Fixtures, rainwater, greywater reuse</span></div></li>
+          <li><div><b>Health &amp; comfort</b><span>Air, daylight, and thermal comfort</span></div></li>
+          <li><div><b>Resilience &amp; cost</b><span>Flooding, heat, and the financial ladder</span></div></li>
+          <li><div><b>Wisdom from the past</b><span>Vernacular intelligence, modern physics</span></div></li>
+          <li><div><b>Quick Wins checklist</b><span>Costed, testable actions to start today</span></div></li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- WISDOM -->
+<div class="wrap">
+  <section class="band" id="read">
+    <div class="sec-head">
+      <span class="eyebrow">Wisdom from the past</span>
+      <h2>Centuries of climate intelligence, explained as physics.</h2>
+      <p>BGMS treats vernacular building as substantive knowledge — naming the tradition, explaining how it works, and drawing the equivalence to modern practice.</p>
+    </div>
+    <div class="wisdom-grid">
+      <div class="wcard">
+        <img src="../assets/illustrations/jaali-venturi.png" alt="Jaali screen airflow">
+        <div class="b"><h4>Rajasthani jaali</h4><p>The perforated stone screen accelerates air as it squeezes through each opening — the Venturi effect — cooling the room behind it. Hot-dry, refined over four centuries.</p></div>
+      </div>
+      <div class="wcard">
+        <img src="../assets/illustrations/thermal-mass-house.png" alt="Thick-wall thermal mass house">
+        <div class="b"><h4>Himalayan thermal mass</h4><p>Thick earth and stone walls — the logic of Kath-Kuni and Ladakhi homes — store the day's warmth and release it through cold high-altitude nights.</p></div>
+      </div>
+      <div class="wcard">
+        <img src="../assets/illustrations/badgir-windcatcher.png" alt="Wind catcher airflow">
+        <div class="b"><h4>Courtyards &amp; wind-catchers</h4><p>North African courtyards and Persian badgirs move air without power, pulling cool night air down and venting heat by day.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SAMPLE SPREAD -->
+<div class="band-alt">
+  <div class="wrap">
+    <section class="band">
+      <div class="sec-head"><span class="eyebrow">How a page reads</span><h2>One figure. One plain sentence. One action.</h2></div>
+      <div class="sample">
+        <div class="keynum">
+          <span class="eyebrow">Key Number</span>
+          <div class="v">37%</div>
+          <p>of global energy-related CO₂ emissions come from constructing and running buildings — more than transport.</p>
+          <span class="src">Source: UN Global Status Report for Buildings &amp; Construction (2023)</span>
+        </div>
+        <div class="callout">
+          <span class="ic"><svg data-l="lightbulb"></svg></span>
+          <div>
+            <h4>Quick Win</h4>
+            <p>Buy a CO₂ meter <span class="cost">(~$30–80)</span>. Leave it in your bedroom for a week. If readings regularly pass <strong>1,000 ppm</strong> with the door shut, that room needs ventilation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="wrap">
+  <section class="band" id="tools">
+    <div class="sec-head">
+      <span class="eyebrow">Free interactive tools</span>
+      <h2>Companion calculators, open to everyone.</h2>
+      <p>Built alongside the guide — no sign-up, no paywall. They run in your browser at angiras.co/bgms.</p>
+    </div>
+    <div class="tools">
+      <a class="tool" href="https://angiras.co/bgms/zone-finder.html" target="_blank" rel="noopener">
+        <div class="ic" style="background:var(--zone-hot-dry)"><svg data-l="compass"></svg></div>
+        <h4>Zone Finder</h4>
+        <p>Enter your city and get your climate zone, with the comfort challenge to design for.</p>
+        <span class="go">Open tool →</span>
+      </a>
+      <a class="tool" href="https://angiras.co/bgms/measure-picker.html" target="_blank" rel="noopener">
+        <div class="ic" style="background:var(--forest-700)"><svg data-l="list-checks"></svg></div>
+        <h4>Measure Picker</h4>
+        <p>Filter measures by budget, effort, and zone to build a shortlist that fits your home.</p>
+        <span class="go">Open tool →</span>
+      </a>
+      <a class="tool" href="https://angiras.co/bgms/payback-calculator.html" target="_blank" rel="noopener">
+        <div class="ic" style="background:var(--teal-600)"><svg data-l="line-chart"></svg></div>
+        <h4>Payback Calculator</h4>
+        <p>Estimate how quickly an upgrade pays for itself from the savings it returns.</p>
+        <span class="go">Open tool →</span>
+      </a>
+      <a class="tool" href="https://angiras.co/bgms/rainwater-tank.html" target="_blank" rel="noopener">
+        <div class="ic" style="background:var(--zone-cold)"><svg data-l="droplets"></svg></div>
+        <h4>Rainwater Tank</h4>
+        <p>Size a rainwater tank for your roof area, rainfall, and household demand.</p>
+        <span class="go">Open tool →</span>
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- CREDIBILITY + LICENSE -->
+<div class="band-alt">
+  <div class="wrap">
+    <section class="band">
+      <div class="sec-head"><span class="eyebrow">Why you can trust it</span><h2>Rigour you can check, in language you can use.</h2></div>
+      <div class="cred">
+        <ul>
+          <li><span class="ic"><svg data-l="shield-check"></svg></span><div><b>Tiered sourcing.</b> Every figure traces to a Tier 1 (peer-reviewed, official standards and bodies) or Tier 2 (reputable industry) source — never an unsourced number.</div></li>
+          <li><span class="ic"><svg data-l="file-search"></svg></span><div><b>A public research log.</b> The evidence behind the guide is documented and open, so claims can be traced and challenged.</div></li>
+          <li><span class="ic"><svg data-l="globe-2"></svg></span><div><b>Certification-agnostic.</b> BGMS leads with cost and climate, not a single rating system — the fundamentals apply under LEED, WELL, EDGE, or none.</div></li>
+          <li><span class="ic"><svg data-l="heart-handshake"></svg></span><div><b>Open access, freely shared.</b> Released under Creative Commons so educators and communities can use and distribute it.</div></li>
+        </ul>
+        <div class="license">
+          <h4>Cite &amp; reuse</h4>
+          <div class="doi"><b style="color:var(--ink-900)">License:</b> CC BY-NC-ND 4.0<br><b style="color:var(--ink-900)">DOI:</b> 10.5281/zenodo.20365824<br><b style="color:var(--ink-900)">Version:</b> 1.1</div>
+          <p class="cite"><b>Suggested citation:</b> Angiras, P. &amp; Sodeiri Jalili, G. (2026). <i>Building Green Made Simple</i> (Version 1.1). Angiras &amp; Co.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="top">
+      <img class="mk" src="../assets/brand/angiras-mark.png" alt="Angiras & Co.">
+      <div>
+        <b>Angiras &amp; Co.™</b>
+        <div style="font-family:var(--font-sans);font-size:14px;color:var(--text-on-dark-muted);margin-top:4px">Publisher of Building Green Made Simple · <a href="mailto:pradeep@angiras.co">pradeep@angiras.co</a></div>
+      </div>
+    </div>
+    <div class="sig">Pradeep Angiras &nbsp;|&nbsp; LEED AP BD+C &nbsp;|&nbsp; EDGE Expert &nbsp;|&nbsp; ENV SP &nbsp;|&nbsp; WELL AP &nbsp;|&nbsp; PMP &nbsp;|&nbsp; Halifax, Nova Scotia</div>
+    <div class="legal">
+      <span>© 2026 Angiras &amp; Co.™ · Building Green Made Simple is released under CC BY-NC-ND 4.0.</span>
+      <span>Illustrative figures are conceptual and schematic — not engineering specifications.</span>
+    </div>
   </div>
 </footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  document.querySelectorAll('svg[data-l]').forEach(el => {
+    const i = document.createElement('i'); i.setAttribute('data-lucide', el.getAttribute('data-l'));
+    el.replaceWith(i);
+  });
+  if (window.lucide) window.lucide.createIcons();
+</script>
 </body>
 </html>

@@ -1,216 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="icon" href="/assets/icons/angiras-favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/angiras-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/angiras-16x16.png">
-<link rel="apple-touch-icon" href="/assets/icons/angiras-apple-touch-icon.png">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Angiras &amp; Co. | Education and Engineering for the Built Environment</title>
-<meta name="description" content="Angiras and Co. is an education and engineering practice for sustainable building, rooted in India with a global outlook. Home of Building Green, Made Simple.">
-<meta property="og:title" content="Angiras & Co. | Green Building Education & Sustainability Advisory">
-<meta property="og:description" content="Home of Building Green, Made Simple: an open-access guide and tools for affordable, climate-responsive green building.">
-<meta property="og:url" content="https://angiras.co/">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://angiras.co/bgms/assets/bgms-share.png">
-<meta name="twitter:image" content="https://angiras.co/bgms/assets/bgms-share.png">
-<meta name="twitter:card" content="summary_large_image"><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Angiras & Co. — Independent Net-Zero Practice</title>
+<meta name="description" content="The independent net-zero and sustainability practice of Pradeep Angiras. Publisher of the open-access guide Building Green Made Simple.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="assets/brand/favicons/angiras-favicon.ico">
+<link rel="apple-touch-icon" href="assets/brand/favicons/angiras-apple-touch-icon.png">
 <style>
-  :root {
-    --forest: #2D5A27;
-    --terracotta: #B05A1A;
-    --sage: #7FB069;
-    --cream: #FAF6EE;
-    --charcoal: #2B2B2B;
-    --ink-soft: #5A5A52;
-    --line: #E4DCCB;
-  }
+  body { background: var(--paper-bright); color: var(--ink-700); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* nav */
+  .nav { position: sticky; top: 0; z-index: 40; background: rgba(253,251,246,0.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .nav .in { max-width: 1180px; margin: 0 auto; padding: 13px 28px; display: flex; align-items: center; gap: 14px; }
+  .logo { display: flex; align-items: center; gap: 11px; }
+  .logo img { width: 40px; height: 40px; border-radius: 9px; }
+  .logo b { font-family: var(--font-serif); font-size: 19px; font-weight: 600; color: var(--ink-900); }
+  .logo sup { font-size: 10px; }
+  .nav nav { margin-left: auto; display: flex; gap: 24px; }
+  .nav nav a { font-family: var(--font-sans); font-size: 14.5px; font-weight: 500; color: var(--ink-600); }
+  .nav nav a:hover { color: var(--forest-700); text-decoration: none; }
+  .btn { font-family: var(--font-sans); font-weight: 600; border-radius: var(--radius-md); cursor: pointer; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: all .15s; }
+  .btn-accent { background: var(--terracotta-500); color: #fff; padding: 9px 16px; font-size: 14px; }
+  .btn-accent:hover { background: var(--terracotta-700); text-decoration: none; }
+  .btn-primary { background: var(--forest-700); color: #fff; padding: 13px 24px; font-size: 16px; }
+  .btn-primary:hover { background: var(--forest-800); text-decoration: none; }
+  .btn-secondary { background: transparent; color: var(--forest-700); border-color: var(--forest-700); padding: 12px 22px; font-size: 16px; }
+  .btn-secondary:hover { background: var(--forest-100); text-decoration: none; }
 
-  body {
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
-    background: var(--cream);
-    color: var(--charcoal);
-    line-height: 1.65;
-    font-size: 17px;
-  }
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; padding: 68px 0 56px; }
+  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 32px; } }
+  .hero .eyebrow { display: block; margin-bottom: 16px; }
+  .hero h1 { font-size: 58px; line-height: 1.02; letter-spacing: -.02em; margin: 0 0 20px; color: var(--ink-900); }
+  .hero h1 em { font-style: italic; color: var(--forest-700); }
+  .hero p { font-size: 19px; line-height: 1.6; max-width: 50ch; color: var(--ink-600); margin: 0 0 28px; }
+  .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-art { position: relative; }
+  .hero-art .photo { border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--line); aspect-ratio: 4/5; }
+  .hero-art .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-art .mark { position: absolute; left: -26px; bottom: -22px; width: 92px; height: 92px; border-radius: 18px; box-shadow: var(--shadow-md); border: 3px solid var(--paper); }
 
-  a { color: var(--forest); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:hover { color: var(--terracotta); }
-  a:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+  /* credential strip */
+  .creds { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card-cream); }
+  .creds .in { max-width: 1180px; margin: 0 auto; padding: 20px 28px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .creds span.lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-400); }
+  .creds ul { list-style: none; display: flex; gap: 10px; flex-wrap: wrap; margin: 0; padding: 0; }
+  .creds li { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--forest-800); background: var(--forest-100); padding: 5px 12px; border-radius: var(--radius-pill); }
 
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  /* sections */
+  section.band { padding: 72px 0; }
+  .sec-head { max-width: 640px; margin-bottom: 40px; }
+  .sec-head .eyebrow { display: block; margin-bottom: 12px; }
+  .sec-head h2 { font-size: 38px; margin: 0 0 12px; }
+  .sec-head p { font-size: 17px; color: var(--ink-600); margin: 0; }
 
-  /* Strata bar: layered earth section, the practice's mark */
-  .strata { display: flex; flex-direction: column; }
-  .strata span { display: block; }
-  .strata .s1 { height: 3px; background: var(--terracotta); }
-  .strata .s2 { height: 7px; background: var(--forest); }
-  .strata .s3 { height: 4px; background: var(--sage); }
-  .strata .s4 { height: 2px; background: var(--charcoal); }
+  .offer { display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; max-width: 760px; }
+  @media (max-width: 860px){ .offer { grid-template-columns: 1fr; } }
+  .ocard { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s; }
+  .ocard:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .ocard .ic { width: 46px; height: 46px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 16px; color: #fff; }
+  .ocard .ic svg { width: 24px; height: 24px; }
+  .ocard h3 { font-size: 21px; margin: 0 0 8px; }
+  .ocard p { font-size: 15px; line-height: 1.6; color: var(--ink-600); margin: 0; }
+  .status { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: 4px 9px; border-radius: var(--radius-pill); display: inline-flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+  .status .d { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .status.live { color: var(--forest-700); background: var(--forest-100); }
+  .status.soon { color: var(--ochre-600); background: var(--ochre-100); }
 
-  header { padding: 72px 0 56px; }
+  /* training */
+  .band-alt { background: var(--paper-deep); }
+  .courses { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  @media (max-width: 860px){ .courses { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px){ .courses { grid-template-columns: 1fr; } }
+  .course { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: border-color .15s, box-shadow .2s; }
+  .course:hover { border-color: var(--forest-500); box-shadow: var(--shadow-md); }
+  .course .tag { align-self: flex-start; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 4px 9px; border-radius: var(--radius-pill); }
+  .course h3 { font-size: 19px; margin: 0; }
+  .course p { font-size: 14px; color: var(--ink-600); margin: 0; line-height: 1.5; flex: 1; }
+  .course .meta { font-family: var(--font-mono); font-size: 12px; color: var(--ink-400); display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--line-soft); }
+  .course .meta b { color: var(--forest-700); font-weight: 600; }
 
-  .kicker {
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    font-weight: 600;
-    margin-bottom: 18px;
-  }
+  /* BGMS band */
+  .bgms { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 44px; align-items: center; background: var(--forest-900); border-radius: var(--radius-xl); padding: 48px; color: var(--text-on-dark); }
+  @media (max-width: 860px){ .bgms { grid-template-columns: 1fr; } }
+  .bgms img.cover { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+  .bgms .eyebrow { color: var(--sage-300); display:block; margin-bottom: 12px; }
+  .bgms h2 { color: #fff; font-size: 34px; margin: 0 0 14px; }
+  .bgms p { color: var(--text-on-dark-muted); font-size: 16.5px; line-height: 1.6; max-width: 48ch; }
+  .bgms .mini { display: flex; align-items: center; gap: 12px; margin: 22px 0 26px; }
+  .bgms .mini img { width: 44px; height: 44px; border-radius: 9px; }
+  .bgms .mini span { font-family: var(--font-mono); font-size: 12px; color: var(--sage-300); }
 
-  h1 {
-    font-family: 'IBM Plex Serif', Georgia, serif;
-    font-weight: 600;
-    font-size: clamp(2.1rem, 5.5vw, 3.1rem);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin-bottom: 22px;
-  }
+  /* founder */
+  .founder { display: grid; grid-template-columns: 215px 1fr; gap: 38px; align-items: center; }
+  @media (max-width: 720px){ .founder { grid-template-columns: 1fr; } }
+  .founder .pf { width: 215px; height: 270px; border-radius: var(--radius-xl); object-fit: cover; object-position: 50% 14%; box-shadow: var(--shadow-md); border: 1px solid var(--line); }
+  .founder blockquote { margin: 0; font-family: var(--font-serif); font-size: 24px; line-height: 1.4; color: var(--ink-900); font-style: italic; }
+  .founder .sig { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-500); margin-top: 18px; line-height: 1.7; }
+  .founder .sig b { font-style: normal; color: var(--forest-700); }
 
-  .lede {
-    font-size: 1.13rem;
-    color: var(--ink-soft);
-    max-width: 56ch;
-  }
+  /* footer */
+  footer { background: var(--forest-950); color: var(--text-on-dark); padding: 54px 0 36px; margin-top: 24px; }
+  footer .cols { display: flex; gap: 56px; flex-wrap: wrap; }
+  footer .logo b { color: #fff; }
+  footer h5 { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--sage-300); margin: 0 0 14px; }
+  footer a { display: block; color: var(--text-on-dark-muted); font-size: 14px; padding: 4px 0; }
+  footer a:hover { color: #fff; text-decoration: none; }
+  footer .legal { border-top: 1px solid rgba(255,255,255,0.12); margin-top: 36px; padding-top: 20px; font-size: 12.5px; color: var(--text-on-dark-muted); display:flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
-  section { padding: 52px 0; border-top: 1px solid var(--line); }
-
-  h2 {
-    font-family: 'IBM Plex Serif', Georgia, serif;
-    font-weight: 600;
-    font-size: 1.45rem;
-    margin-bottom: 16px;
-  }
-
-  p + p { margin-top: 14px; }
-
-  .offering {
-    border: 1px solid var(--line);
-    border-left: 4px solid var(--forest);
-    background: #fff;
-    padding: 26px 28px;
-    margin-top: 22px;
-    border-radius: 0 6px 6px 0;
-  }
-
-  .offering h3 {
-    font-family: 'IBM Plex Serif', Georgia, serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .offering p { color: var(--ink-soft); font-size: 0.98rem; }
-
-  .offering .links { margin-top: 16px; display: flex; gap: 22px; flex-wrap: wrap; }
-
-  .btn {
-    display: inline-block;
-    background: var(--forest);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-  }
-  .btn:hover { background: var(--terracotta); color: #fff; }
-
-  .quiet { color: var(--ink-soft); font-size: 0.95rem; margin-top: 20px; }
-
-  .creds {
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-    letter-spacing: 0.04em;
-    margin-top: 12px;
-  }
-
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 36px 0 48px;
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-  }
-  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
-
-  @media (max-width: 540px) {
-    header { padding: 52px 0 40px; }
-    section { padding: 40px 0; }
-    .offering { padding: 20px; }
-  }
+  /* toast */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%); background: var(--forest-800); color: #fff; padding: 13px 22px; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); font-family: var(--font-sans); font-size: 14.5px; font-weight: 500; transition: transform .3s var(--ease-out); z-index: 60; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
 
-<div class="strata" aria-hidden="true">
-  <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span>
-</div>
-
-<header>
-  <div class="wrap">
-    <p class="kicker">Angiras &amp; Co.</p>
-    <h1>Education and engineering for the built environment.</h1>
-    <p class="lede">An independent practice translating green building knowledge into guidance people can actually use. Rooted in India, working globally, grounded in what climate, cost, and craft each demand.</p>
+<header class="nav">
+  <div class="in">
+    <a class="logo" href="#"><img src="assets/brand/angiras-mark.png" alt=""><b>Angiras &amp; Co.<sup>™</sup></b></a>
+    <nav>
+      <a href="#services">Consulting</a>
+      <a href="#bgms">BGMS</a>
+      <a href="#founder">About</a>
+    </nav>
+    <a class="btn btn-accent" href="#contact">Get in touch</a>
   </div>
 </header>
 
-<section>
-  <div class="wrap">
-    <h2>Current work</h2>
-
-    <div class="offering">
-      <h3>Building Green, Made Simple</h3>
-      <p>A free illustrated guide to sustainable building for homeowners, renters, and small business owners. Every measure is filtered by cost, ease of adoption, and climate fit across six climate zones, from hot-humid coasts to high-altitude valleys. Open access under a Creative Commons license.</p>
-     <div class="links">
-
-<a class="btn" href="/bgms/">Explore the guide</a>
-
-<a href="/bgms/zone-finder.html">Climate Zone Finder</a>
-
-<a href="/bgms/measure-picker.html">Measure Picker</a>
-
-<a href="/bgms/payback-calculator.html">Payback Calculator</a>
-       <a href="/bgms/rainwater-tank.html">Rainwater Tank</a>
-
-<a href="https://doi.org/10.5281/zenodo.20365824">Download the PDF (Zenodo)</a>
-
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Independent net-zero &amp; sustainability practice</span>
+      <h1>Green building, <em>made simple</em> — and made to last.</h1>
+      <p>Angiras &amp; Co. is the independent practice of Pradeep Angiras, a civil engineer and net-zero consultant. Its first public work — the open-access guide <em>Building Green Made Simple</em> — is free to read today.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#bgms">Read the BGMS guide</a>
+        <a class="btn btn-secondary" href="#founder">About the practice</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="photo"><img src="assets/photos/chand-baori.jpeg" alt="Chand Baori stepwell, Rajasthan"></div>
+      <img class="mark" src="assets/brand/angiras-mark.png" alt="Angiras & Co. mark">
+    </div>
+  </section>
 </div>
 
-    <p class="quiet">Further education offerings are in development and will be announced here.</p>
-  </div>
-</section>
+<!-- SERVICES -->
+<div class="wrap">
+  <section class="band" id="services">
+    <div class="sec-head">
+      <span class="eyebrow">What we do</span>
+      <h2>One foundation, two kinds of work.</h2>
+      <p>Grounded in engineering and construction management — practical first, certification-agnostic, and honest about cost.</p>
+    </div>
+    <div class="offer">
+      <div class="ocard">
+        <span class="status live"><span class="d"></span>Live now</span>
+        <div class="ic" style="background:var(--teal-600)" data-lucide="book-open"></div>
+        <h3>Education</h3>
+        <p>Building Green Made Simple — a free, open-access guide and companion tools that put sound building science in the hands of homeowners, renters, and small businesses.</p>
+      </div>
+      <div class="ocard">
+        <span class="status live"><span class="d"></span>Available</span>
+        <div class="ic" style="background:var(--forest-700)" data-lucide="ruler"></div>
+        <h3>Consulting</h3>
+        <p>Selective net-zero and certification-support engagements — energy and carbon analysis for owners and design teams, drawing on credentials held and used in practice.</p>
+      </div>
+    </div>
+  </section>
+</div>
 
-<section>
-  <div class="wrap">
-    <h2>About the practice</h2>
-    <p>Angiras &amp; Co. is led by Pradeep Angiras, a green building professional and former assistant professor of civil engineering.</p>
-    <p class="creds">LEED AP BD+C &nbsp;&middot;&nbsp; WELL AP &nbsp;&middot;&nbsp; EDGE Expert &nbsp;&middot;&nbsp; ENV SP &nbsp;&middot;&nbsp; PMP</p>
-  </div>
-</section>
+<!-- BGMS -->
+<div class="wrap">
+  <section class="band" id="bgms">
+    <div class="bgms">
+      <img class="cover" src="assets/illustrations/koppen-climate-tactics.png" alt="Climate-zone tactics map from BGMS">
+      <div>
+        <span class="eyebrow">Published &middot; free &amp; open access</span>
+        <h2>Building Green Made Simple</h2>
+        <p>The practice's first public work: a certification-agnostic guide that flags every recommendation to the climate zone where it actually delivers — and treats vernacular building intelligence, from the jaali to the courtyard, as substantial knowledge.</p>
+        <div class="mini">
+          <img src="assets/brand/bgms-mark.png" alt="">
+          <span>By Pradeep Angiras &middot; CC BY-NC-ND 4.0</span>
+        </div>
+        <a class="btn btn-accent" href="bgms/index.html" style="padding:12px 22px;font-size:15px">Open the guide</a>
+      </div>
+    </div>
+  </section>
+</div>
 
-<section>
-  <div class="wrap">
-    <h2>Contact</h2>
-    <p>Write to <a href="mailto:pradeep@angiras.co">pradeep@angiras.co</a> or connect on <a href="https://www.linkedin.com/in/pradeep-angiras/">LinkedIn</a>.</p>
-  </div>
-</section>
+<!-- FOUNDER -->
+<div class="wrap">
+  <section class="band" id="founder">
+    <div class="founder">
+      <img class="pf" src="assets/photos/pradeep-angiras.jpg" alt="Pradeep Angiras">
+      <div>
+        <blockquote>“Sustainability is not costly. It needs to be simplified and codified throughout the world, in accordance with context — to create lasting change.”</blockquote>
+        <p class="sig"><b>Pradeep Angiras</b> — Founder, Angiras &amp; Co.™<br>Pradeep grew up in the mighty and fragile Himalayas, where the effects of a changing climate were visible early. A civil and construction-management professional with an MBA and a PMP, he specialised in green building after seeing the net-zero ambitions of cities and provinces across Canada — and approaches the work with attention to people, context, and the realities of getting things built.<br><br>LEED AP BD+C · WELL AP · ENV SP · EDGE Expert · PMP · LSSBB · MBA</p>
+      </div>
+    </div>
+  </section>
+</div>
 
-<footer>
+<!-- FOOTER -->
+<footer id="contact">
   <div class="wrap">
-    <span>&copy; 2026 Angiras &amp; Co. All rights reserved.</span>
-    <span>Building Green, Made Simple is published under CC BY-NC-ND 4.0.</span>
+    <div class="cols">
+      <div style="flex:1;min-width:240px">
+        <div class="logo" style="margin-bottom:14px"><img src="assets/brand/angiras-mark.png" alt="" style="width:46px;height:46px;border-radius:10px"><b style="font-family:var(--font-serif);font-size:20px;font-weight:600">Angiras &amp; Co.<sup style="font-size:10px">™</sup></b></div>
+        <p style="color:var(--text-on-dark-muted);font-size:14.5px;max-width:34ch;line-height:1.6;margin:0">The independent net-zero practice of Pradeep Angiras. Evidence-led, certification-agnostic, and global in outlook.</p>
+      </div>
+      <div><h5>Practice</h5><a href="#services">What we do</a><a href="#bgms">BGMS guide</a><a href="#founder">About</a></div>
+      <div><h5>Get in touch</h5><a href="mailto:pradeep@angiras.co">pradeep@angiras.co</a><a href="#">Halifax, Nova Scotia</a><a href="#">LinkedIn</a></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Angiras &amp; Co.™ · All rights reserved.</span>
+      <span>Pradeep Angiras · LEED AP BD+C · EDGE Expert · ENV SP · WELL AP · PMP</span>
+    </div>
   </div>
 </footer>
 
-<div class="strata" aria-hidden="true">
-  <span class="s4"></span><span class="s3"></span><span class="s2"></span><span class="s1"></span>
-</div>
+<div class="toast" id="toast"></div>
 
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  document.querySelectorAll('[data-lucide]').forEach(el => {
+    const n = el.getAttribute('data-lucide'); el.innerHTML = '';
+    const i = document.createElement('i'); i.setAttribute('data-lucide', n); el.appendChild(i);
+  });
+  if (window.lucide) window.lucide.createIcons();
+
+  const toast = document.getElementById('toast');
+  let t;
+  function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); clearTimeout(t); t = setTimeout(()=>toast.classList.remove('show'), 2600); }
+  document.querySelectorAll('.course').forEach(c => {
+    c.addEventListener('click', () => showToast('Thanks — we\'ll let you know when ' + c.dataset.course + ' opens.'));
+  });
+</script>
 </body>
 </html>

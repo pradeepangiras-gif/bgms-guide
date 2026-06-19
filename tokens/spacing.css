@@ -1,0 +1,55 @@
+/* ============================================================
+   Angiras & Co. — Spacing, Radii, Elevation, Motion
+   ------------------------------------------------------------
+   8px base grid. Soft, paper-like surfaces: low-contrast warm
+   shadows, modest radii. Calm, unhurried motion.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (8px grid; 1–2 sub-steps) ---- */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4 */
+  --space-2: 0.5rem;    /* 8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.5rem;    /* 24 */
+  --space-6: 2rem;      /* 32 */
+  --space-7: 3rem;      /* 48 */
+  --space-8: 4rem;      /* 64 */
+  --space-9: 6rem;      /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* ---- Radii (modest, paper-like) ---- */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+  --radius-pill: 999px;
+
+  /* ---- Borders ---- */
+  --border-width: 1px;
+  --border-width-thick: 2px;
+
+  /* ---- Elevation (warm, low-contrast shadows) ---- */
+  --shadow-xs: 0 1px 2px rgba(30, 42, 40, 0.06);
+  --shadow-sm: 0 1px 3px rgba(30, 42, 40, 0.08), 0 1px 2px rgba(30, 42, 40, 0.04);
+  --shadow-md: 0 4px 12px rgba(30, 42, 40, 0.08), 0 2px 4px rgba(30, 42, 40, 0.05);
+  --shadow-lg: 0 12px 28px rgba(30, 42, 40, 0.12), 0 4px 8px rgba(30, 42, 40, 0.06);
+  --shadow-xl: 0 24px 56px rgba(20, 32, 30, 0.16);
+  --shadow-inset: inset 0 1px 2px rgba(30, 42, 40, 0.07);
+
+  /* ---- Layout ---- */
+  --container-max: 1200px;
+  --container-prose: 720px;
+  --container-wide: 1440px;
+  --gutter: var(--space-5);
+
+  /* ---- Motion (calm, unhurried) ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */
+  --duration-fast: 120ms; /* @kind other */
+  --duration-base: 200ms; /* @kind other */
+  --duration-slow: 360ms; /* @kind other */
+}

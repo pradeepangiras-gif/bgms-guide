@@ -1,0 +1,112 @@
+/* ============================================================
+   Angiras & Co. — Color Tokens
+   ------------------------------------------------------------
+   Palette derived from the Building Green Made Simple guide:
+   warm "paper" ground + a climate-zone earth palette.
+   Forest green leads (master brand), terracotta is the warm
+   accent (India nod), sage supports, climate-zone hues double
+   as a domain palette for green-building content.
+   ============================================================ */
+
+:root {
+  /* ---- Brand greens (primary) ---- */
+  --forest-950: #0C3014;
+  --forest-900: #103D1A;   /* deepest — section headers, footers */
+  --forest-800: #16531F;
+  --forest-700: #1B6128;   /* primary brand green */
+  --forest-600: #2E7D43;
+  --forest-500: #3E9255;
+  --forest-300: #8FBF9C;
+  --forest-100: #DDEBDE;
+
+  /* ---- Sage (secondary / supportive) ---- */
+  --sage-700: #6E8A5C;
+  --sage-500: #8DA677;     /* signature muted sage */
+  --sage-300: #AEC199;
+  --sage-200: #C7D5B6;
+  --sage-100: #E4EBD9;
+
+  /* ---- Terracotta (accent — warmth, India, CTAs) ---- */
+  --terracotta-700: #9F3E1F;
+  --terracotta-600: #B84A26;
+  --terracotta-500: #C0562B;   /* primary accent */
+  --terracotta-400: #D27A4E;
+  --terracotta-300: #E2A37F;
+  --terracotta-100: #F4DECF;
+
+  /* ---- Ochre / earth (materials, secondary warm) ---- */
+  --ochre-600: #875A18;
+  --ochre-500: #9C6B1F;
+  --ochre-300: #C9A05A;
+  --ochre-100: #EEE0C4;
+
+  /* ---- Climate-zone domain hues ---- */
+  --zone-hot-humid: #1C6E7E;   /* teal */
+  --zone-hot-dry: #C0492A;     /* rust */
+  --zone-temperate: #14441E;   /* forest */
+  --zone-cold: #1E3A6E;        /* navy */
+  --zone-high-altitude: #9C6B1F; /* ochre */
+  --zone-mixed: #6F4F94;       /* plum */
+
+  --teal-600: #1C6E7E;
+  --teal-400: #4E97A4;
+  --teal-100: #D5E6E8;
+  --indigo-700: #1E3A6E;
+  --indigo-100: #D7DEEC;
+  --plum-600: #6F4F94;
+  --plum-100: #E5DCEF;
+
+  /* ---- Warm neutrals (paper-based) ---- */
+  --paper: #F8F4EC;        /* signature page ground (cream, lifted ~25% toward white) */
+  --paper-deep: #F1EBDD;   /* alternating sections */
+  --paper-warm: #FBF7EC;
+  --paper-bright: #FDFBF6; /* near-white reading ground for long-text pages */
+  --card: #FFFFFF;
+  --card-cream: #FCFAF2;
+
+  --ink-950: #14201E;
+  --ink-900: #1E2A28;      /* primary text (warm near-black green) */
+  --ink-700: #3C4945;
+  --ink-600: #4F5C57;
+  --ink-500: #6B776F;      /* secondary text */
+  --ink-400: #8B968D;      /* muted / captions */
+  --ink-300: #A9B2A8;
+
+  --line-strong: #CFC6AF;
+  --line: #DED7C4;         /* default warm border */
+  --line-soft: #EAE3D2;
+
+  /* ---- Semantic feedback ---- */
+  --success: #1B6128;
+  --success-bg: #DDEBDE;
+  --warning: #9C6B1F;
+  --warning-bg: #EEE0C4;
+  --danger: #9F3E1F;
+  --danger-bg: #F4DECF;
+  --info: #1C6E7E;
+  --info-bg: #D5E6E8;
+
+  /* ---- Semantic aliases (use these in components) ---- */
+  --bg-page: var(--paper);
+  --bg-alt: var(--paper-deep);
+  --surface-card: var(--card);
+  --surface-cream: var(--card-cream);
+
+  --text-strong: var(--ink-900);
+  --text-body: var(--ink-700);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-400);
+  --text-on-dark: #F4EFE2;
+  --text-on-dark-muted: #C7CFC3;
+
+  --brand: var(--forest-700);
+  --brand-deep: var(--forest-900);
+  --accent: var(--terracotta-500);
+  --accent-deep: var(--terracotta-700);
+
+  --border: var(--line);
+  --border-strong: var(--line-strong);
+
+  --focus-ring: #2E7D43;
+  --selection: #C7D5B6;
+}

@@ -1,0 +1,14 @@
+/* ============================================================
+   Angiras & Co. — Webfonts
+   ------------------------------------------------------------
+   Loaded from Google Fonts. These are deliberate substitutions
+   for Pradeep's working fonts (Calibri / Arial / Times New Roman):
+     · Spectral      → warm editorial serif, stands in for Times
+     · Source Sans 3 → humanist sans, the friendly upgrade of Calibri
+     · IBM Plex Mono → technical/data labels (engineering credibility)
+   NOTE: fonts load over the network. For fully offline/print use,
+   download the .ttf families and swap these @imports for local
+   @font-face rules. Flagged to the client for sign-off.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
